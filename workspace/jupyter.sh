@@ -9,3 +9,6 @@ pip install notebook
 
 # start jupyter notebook
 jupyter notebook --no-browser --port 8977
+
+# install necessary libraries
+pip install sqlalchemy
