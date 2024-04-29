@@ -14,6 +14,7 @@ create table customer(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence customer_id_serial start 1;
 
 create table service(
 	service_id bigint NOT NULL PRIMARY KEY,
@@ -23,6 +24,7 @@ create table service(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence service_id_serial start 1;
 
 create table trans(
 	trans_id bigint NOT NULL PRIMARY KEY,
@@ -35,6 +37,7 @@ create table trans(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence trans_id_serial start 1;
 
 create table period_type(
 	period_type_id int NOT NULL PRIMARY KEY,
@@ -42,3 +45,4 @@ create table period_type(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence period_type_id_serial start 1;
