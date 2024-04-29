@@ -1,5 +1,7 @@
-from db.schema.customers import Customer
+from db.schema.customer import Customer, CustomerCreate, CustomerUpdate
 
 __all__ = [
-    Customer
+    Customer,
+    CustomerCreate,
+    CustomerUpdate
 ]

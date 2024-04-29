@@ -1,5 +1,5 @@
-from api.customers import customers_router
+from api.customer import customer_router
 
 __all__ = [
-    customers_router
+    customer_router
 ]
