@@ -10,4 +10,3 @@ product1.include_router(
     prefix="/api/customers",
     tags=["Customers"]
 )
-
