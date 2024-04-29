@@ -34,6 +34,7 @@ create table trans(
 	customer_id bigint,
 	service_id bigint,
 	period_type_id int,
+	amount decimal(38,5),
 	review_score int,
 	review_comment varchar(99),
 	review_images varchar(99),
