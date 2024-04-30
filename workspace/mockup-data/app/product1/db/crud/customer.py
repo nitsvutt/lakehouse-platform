@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
+
 from db import model, schema
-from core.utils import current_systime
+from core.utils import current_sysdate, current_systime
 
 def create_customer(customer: schema.CustomerCreate, db: Session):
     db_customer = model.Customer(
@@ -12,19 +13,42 @@ def create_customer(customer: schema.CustomerCreate, db: Session):
         phone_number = customer.phone_number,
         email = customer.email,
         job_title = customer.job_title,
-        active_status = customer.active_status,
+        active_date = customer.active_date,
+        inactive_date = customer.inactive_date,
         created_datetime = current_systime()
     )
     db.add(db_customer)
     db.commit()
     db.refresh(db_customer)
+
+    db_customer_hist = model.CustomerHist(
+        system_id = db_customer.system_id,
+        customer_id = db_customer.customer_id,
+        first_name = db_customer.first_name,
+        last_name = db_customer.last_name,
+        birth_date = db_customer.birth_date,
+        address = db_customer.address,
+        phone_number = db_customer.phone_number,
+        email = db_customer.email,
+        job_title = db_customer.job_title,
+        active_date = db_customer.active_date,
+        inactive_date = db_customer.inactive_date,
+        created_datetime = db_customer.created_datetime
+    )
+    db.add(db_customer_hist)
+    db.commit()
+
     return db_customer
 
 def select_all_customers(db: Session):
     return db.query(model.Customer).all()
 
 def select_customer_by_id(customer_id: int, db: Session):
-    db_customer = db.query(model.Customer).filter(model.Customer.customer_id == customer_id).first()
+    db_customer = (
+        db.query(model.Customer)
+        .filter(model.Customer.customer_id == customer_id)
+        .first()
+    )
     if not db_customer:
         raise HTTPException(
             status_code=404,
@@ -33,7 +57,11 @@ def select_customer_by_id(customer_id: int, db: Session):
     return db_customer
 
 def select_customer_by_first_name(first_name: str, db: Session):
-    db_customer = db.query(model.Customer).filter(model.Customer.first_name == first_name).first()
+    db_customer = (
+        db.query(model.Customer)
+        .filter(model.Customer.first_name == first_name)
+        .first()
+    )
     if not db_customer:
         raise HTTPException(
             status_code=404,
@@ -42,7 +70,11 @@ def select_customer_by_first_name(first_name: str, db: Session):
     return db_customer
 
 def select_customer_by_phone_number(phone_number: str, db: Session):
-    db_customer = db.query(model.Customer).filter(model.Customer.phone_number == phone_number).first()
+    db_customer = (
+        db.query(model.Customer)
+        .filter(model.Customer.phone_number == phone_number)
+        .first()
+    )
     if not db_customer:
         raise HTTPException(
             status_code=404,
@@ -51,7 +83,11 @@ def select_customer_by_phone_number(phone_number: str, db: Session):
     return db_customer
 
 def select_customer_by_email(email: str, db: Session):
-    db_customer = db.query(model.Customer).filter(model.Customer.email == email).first()
+    db_customer = (
+        db.query(model.Customer)
+        .filter(model.Customer.email == email)
+        .first()
+    )
     if not db_customer:
         raise HTTPException(
             status_code=404,
@@ -60,7 +96,11 @@ def select_customer_by_email(email: str, db: Session):
     return db_customer
 
 def update_customer(customer_id: int, customer: schema.CustomerUpdate, db: Session):
-    db_customer = db.query(model.Customer).filter(model.Customer.customer_id == customer_id).first()
+    db_customer = (
+        db.query(model.Customer)
+        .filter(model.Customer.customer_id == customer_id)
+        .first()
+    )
     if not db_customer:
         raise HTTPException(
             status_code=404,
@@ -77,7 +117,11 @@ def update_customer(customer_id: int, customer: schema.CustomerUpdate, db: Sessi
     return db_customer
 
 def delete_customer(customer_id: int, db: Session):
-    db_customer = db.query(model.Customer).filter(model.Customer.customer_id == customer_id).first()
+    db_customer = (
+        db.query(model.Customer)
+        .filter(model.Customer.customer_id == customer_id)
+        .first()
+    )
     if not db_customer:
         raise HTTPException(
             status_code=404,
