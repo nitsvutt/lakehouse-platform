@@ -9,7 +9,8 @@ class CustomerBase(BaseModel):
     phone_number: str = None
     email: str = None
     job_title: str = None
-    active_status: int = None 
+    active_date: date = None
+    inactive_date: date = None
 
 class Customer(CustomerBase):
     customer_id: int
