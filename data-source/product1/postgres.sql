@@ -103,7 +103,7 @@ create table review(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
-create table review(
+create table review_hist(
 	review_id bigint default nextval('review_id'),
 	trans_id bigint,
 	score int,
