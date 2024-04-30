@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Request, Response
 
-from api import customer_router
+from api import (
+    customer_router,
+    service_router
+)
 from db.session import SessionLocal
 
 product1 = FastAPI()
@@ -19,4 +22,10 @@ product1.include_router(
     customer_router,
     prefix="/api/customer",
     tags=["Customer"]
+)
+
+product1.include_router(
+    service_router,
+    prefix="/api/service",
+    tags=["Service"]
 )
