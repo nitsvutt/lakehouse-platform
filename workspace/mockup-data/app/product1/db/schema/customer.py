@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime, date
+from datetime import date
 
 class CustomerBase(BaseModel):
     first_name: str = None
