@@ -12,9 +12,23 @@ class Customer(Base):
     phone_number = Column(String)
     email = Column(String)
     job_title = Column(String)
-    active_status = Column(Integer)
     active_date = Column(Date)
     inactive_date = Column(Date)
     created_datetime = Column(DateTime)
     updated_datetime = Column(DateTime)
 
+class CustomerHist(Base):
+    __tablename__ = "customer_hist"
+
+    customer_id = Column(Integer)
+    first_name = Column(String)
+    last_name = Column(String)
+    birth_date = Column(Date)
+    address = Column(String)
+    phone_number = Column(String)
+    email = Column(String)
+    job_title = Column(String)
+    active_date = Column(Date)
+    inactive_date = Column(Date)
+    created_datetime = Column(DateTime)
+    updated_datetime = Column(DateTime)
