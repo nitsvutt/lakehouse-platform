@@ -8,6 +8,14 @@ from db.crud.customer import (
     update_customer,
     delete_customer
 )
+from db.crud.service import (
+    create_service,
+    select_all_services,
+    select_service_by_id,
+    select_service_by_name,
+    update_service,
+    delete_service
+)
 
 __all__ = [
     create_customer,
@@ -17,5 +25,11 @@ __all__ = [
     select_customer_by_phone_number,
     select_customer_by_email,
     update_customer,
-    delete_customer
+    delete_customer,
+    create_service,
+    select_all_services,
+    select_service_by_id,
+    select_service_by_name,
+    update_service,
+    delete_service
 ]
