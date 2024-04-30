@@ -16,6 +16,7 @@ create table customer(
 	updated_datetime timestamp
 );
 create table customer_hist(
+	system_id bigint primary key,
 	customer_id bigint,
 	first_name varchar(99),
 	last_name varchar(99),
@@ -44,6 +45,7 @@ create table service(
 	updated_datetime timestamp
 );
 create table service_hist(
+	system_id bigint primary key,
 	service_id bigint,
 	name varchar(99),
 	price decimal(38,5),
@@ -68,6 +70,7 @@ create table period(
 	updated_datetime timestamp
 );
 create table period_hist(
+	system_id bigint primary key,
 	period_id bigint,
 	name varchar(99),
 	factor decimal(38,5),
@@ -104,7 +107,8 @@ create table review(
 	updated_datetime timestamp
 );
 create table review_hist(
-	review_id bigint default nextval('review_id'),
+	system_id bigint primary key,
+	review_id bigint,
 	trans_id bigint,
 	score int,
 	comment varchar(99),
