@@ -2,7 +2,7 @@ create sequence customer_system_id_serial start 1;
 create sequence customer_id_serial start 1;
 create table customer(
 	system_id bigint default nextval('customer_system_id_serial') primary key,
-	customer_id bigint default nextval('customer_id_serial'),
+	customer_id bigint default nextval('customer_id_serial') not null,
 	first_name varchar(99),
 	last_name varchar(99),
 	birth_date date,
@@ -35,7 +35,7 @@ create sequence service_system_id_serial start 1;
 create sequence service_id_serial start 1;
 create table service(
 	system_id bigint default nextval('service_system_id_serial') primary key,
-	service_id bigint default nextval('service_id_serial'),
+	service_id bigint default nextval('service_id_serial') not null,
 	name varchar(99),
 	price decimal(38,5),
 	image varchar(99),
@@ -60,7 +60,7 @@ create sequence period_system_id_serial start 1;
 create sequence period_id_serial start 1;
 create table period(
 	system_id bigint default nextval('period_system_id_serial') primary key,
-	period_id bigint default nextval('period_id_serial'),
+	period_id bigint default nextval('period_id_serial') not null,
 	name varchar(99),
 	factor decimal(38,5),
 	extra decimal(38,5),
@@ -85,7 +85,7 @@ create sequence trans_system_id_serial start 1;
 create sequence trans_id_serial start 1;
 create table trans(
 	system_id bigint default nextval('trans_system_id_serial') primary key,
-	trans_id bigint default nextval('trans_id_serial'),
+	trans_id bigint default nextval('trans_id_serial') not null,
 	customer_id bigint,
 	service_id bigint,
 	period_id bigint,
@@ -98,7 +98,7 @@ create sequence review_system_id_serial start 1;
 create sequence review_id_serial start 1;
 create table review(
 	system_id bigint default nextval('review_system_id_serial') primary key,
-	review_id bigint default nextval('review_id_serial'),
+	review_id bigint default nextval('review_id_serial') not null,
 	trans_id bigint,
 	score int,
 	comment varchar(99),
