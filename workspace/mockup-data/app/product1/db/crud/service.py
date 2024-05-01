@@ -64,7 +64,7 @@ def select_service_by_name(name: str, db: Session):
     db_service = (
         db.query(model.Service)
         .filter(model.Service.name == name)
-        .first()
+        .all()
     )
     if not db_service:
         raise HTTPException(
