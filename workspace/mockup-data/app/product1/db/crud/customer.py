@@ -22,7 +22,6 @@ def create_customer(customer: schema.CustomerCreate, db: Session):
     db.refresh(db_customer)
 
     db_customer_hist = model.CustomerHist(
-        system_id = db_customer.system_id,
         customer_id = db_customer.customer_id,
         first_name = db_customer.first_name,
         last_name = db_customer.last_name,
