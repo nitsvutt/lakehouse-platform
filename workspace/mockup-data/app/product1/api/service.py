@@ -1,6 +1,7 @@
 import typing
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
+from datetime import date
 
 from db.schema import Service, ServiceCreate, ServiceUpdate
 from db.session import get_db
@@ -36,14 +37,14 @@ async def get_all_services(db: Session = Depends(get_db)):
     return select_all_services(db=db)
 
 @service_router.get(
-    "/get/id={service_id}",
+    "/get/system_id={system_id}",
     response_model=Service,
-    name="Get service by id",
+    name="Get service by system id",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def get_service_by_id(service_id: int, db: Session = Depends(get_db)):
-    return select_service_by_id(service_id=service_id, db=db)
+async def get_service_by_id(system_id: int, db: Session = Depends(get_db)):
+    return select_service_by_id(system_id=system_id, db=db)
 
 @service_router.get(
     "/get/name={name}",
@@ -56,21 +57,21 @@ async def get_service_by_first_name(name: str, db: Session = Depends(get_db)):
     return select_service_by_name(name=name, db=db)
 
 @service_router.post(
-    "/update/id={service_id}",
+    "/update/system_id={system_id}",
     response_model=Service,
     name="Update service",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def update_a_service(service_id: int, service:ServiceUpdate,  db: Session = Depends(get_db)):
-    return update_service(service_id=service_id, service=service, db=db)
+async def update_a_service(system_id: int, service:ServiceUpdate,  db: Session = Depends(get_db)):
+    return update_service(system_id=system_id, service=service, db=db)
 
 @service_router.post(
-    "/delete/id={service_id}",
+    "/delete/system_id={system_id}",
     response_model=Service,
     name="Delete service",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def delete_a_service(service_id: int,  db: Session = Depends(get_db)):
-    return delete_service(service_id=service_id, db=db)
+async def delete_a_service(system_id: int,  db: Session = Depends(get_db)):
+    return delete_service(system_id=system_id, db=db)
