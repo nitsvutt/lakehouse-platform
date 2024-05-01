@@ -10,7 +10,7 @@ class CustomerBase(BaseModel):
     email: str = None
     job_title: str = None
     active_date: date = None
-    inactive_date: date = None
+    inactive_date: date | None = None
 
 class Customer(CustomerBase):
     customer_id: int
@@ -19,11 +19,13 @@ class Customer(CustomerBase):
         orm_mode = True
 
 class CustomerCreate(CustomerBase):
+    customer_id: int | None = None
 
     class Config:
         orm_mode = True
 
 class CustomerUpdate(CustomerBase):
+    customer_id: int | None = None
 
     class Config:
         orm_mode = True
