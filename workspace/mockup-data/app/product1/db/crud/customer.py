@@ -5,7 +5,20 @@ from db import model, schema
 from core.utils import current_sysdate, current_systime
 
 def create_customer(customer: schema.CustomerCreate, db: Session):
+    db_customer = (
+        db.query(model.Customer)
+        .filter(model.Customer.customer_id == customer.customer_id)
+        .filter(model.Customer.active_date == customer.active_date)
+        .first()
+    )
+    if db_customer:
+        raise HTTPException(
+            status_code=409,
+            detail="Customer exists"
+        )
+    
     db_customer = model.Customer(
+        customer_id = customer.customer_id,
         first_name = customer.first_name,
         last_name = customer.last_name,
         birth_date = customer.birth_date,
@@ -42,10 +55,10 @@ def create_customer(customer: schema.CustomerCreate, db: Session):
 def select_all_customers(db: Session):
     return db.query(model.Customer).all()
 
-def select_customer_by_id(customer_id: int, db: Session):
+def select_customer_by_id(system_id: int, db: Session):
     db_customer = (
         db.query(model.Customer)
-        .filter(model.Customer.customer_id == customer_id)
+        .filter(model.Customer.system_id == system_id)
         .first()
     )
     if not db_customer:
@@ -59,7 +72,7 @@ def select_customer_by_first_name(first_name: str, db: Session):
     db_customer = (
         db.query(model.Customer)
         .filter(model.Customer.first_name == first_name)
-        .first()
+        .all()
     )
     if not db_customer:
         raise HTTPException(
@@ -72,7 +85,7 @@ def select_customer_by_phone_number(phone_number: str, db: Session):
     db_customer = (
         db.query(model.Customer)
         .filter(model.Customer.phone_number == phone_number)
-        .first()
+        .all()
     )
     if not db_customer:
         raise HTTPException(
@@ -85,7 +98,7 @@ def select_customer_by_email(email: str, db: Session):
     db_customer = (
         db.query(model.Customer)
         .filter(model.Customer.email == email)
-        .first()
+        .all()
     )
     if not db_customer:
         raise HTTPException(
@@ -94,10 +107,10 @@ def select_customer_by_email(email: str, db: Session):
         )
     return db_customer
 
-def update_customer(customer_id: int, customer: schema.CustomerUpdate, db: Session):
+def update_customer(system_id: int, customer: schema.CustomerUpdate, db: Session):
     db_customer = (
         db.query(model.Customer)
-        .filter(model.Customer.customer_id == customer_id)
+        .filter(model.Customer.system_id == system_id)
         .first()
     )
     if not db_customer:
@@ -133,10 +146,10 @@ def update_customer(customer_id: int, customer: schema.CustomerUpdate, db: Sessi
 
     return db_customer
 
-def delete_customer(customer_id: int, db: Session):
+def delete_customer(system_id: int, db: Session):
     db_customer = (
         db.query(model.Customer)
-        .filter(model.Customer.customer_id == customer_id)
+        .filter(model.Customer.system_id == system_id)
         .first()
     )
     if not db_customer:
