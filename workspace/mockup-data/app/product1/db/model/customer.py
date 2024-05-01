@@ -22,7 +22,7 @@ class Customer(Base):
 class CustomerHist(Base):
     __tablename__ = "customer_hist"
 
-    system_id = Column(Integer, primary_key=True)
+    system_id = Column(Integer, primary_key=True, server_default=expression.text("True"))
     customer_id = Column(Integer)
     first_name = Column(String)
     last_name = Column(String)
