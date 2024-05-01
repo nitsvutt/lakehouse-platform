@@ -113,6 +113,24 @@ def update_customer(customer_id: int, customer: schema.CustomerUpdate, db: Sessi
     db.add(db_customer)
     db.commit()
     db.refresh(db_customer)
+
+    db_customer_hist = model.CustomerHist(
+        customer_id = db_customer.customer_id,
+        first_name = db_customer.first_name,
+        last_name = db_customer.last_name,
+        birth_date = db_customer.birth_date,
+        address = db_customer.address,
+        phone_number = db_customer.phone_number,
+        email = db_customer.email,
+        job_title = db_customer.job_title,
+        active_date = db_customer.active_date,
+        inactive_date = db_customer.inactive_date,
+        created_datetime = db_customer.created_datetime,
+        updated_datetime = db_customer.updated_datetime
+    )
+    db.add(db_customer_hist)
+    db.commit()
+
     return db_customer
 
 def delete_customer(customer_id: int, db: Session):
@@ -128,4 +146,22 @@ def delete_customer(customer_id: int, db: Session):
         )
     db.delete(db_customer)
     db.commit()
+
+    db_customer_hist = model.CustomerHist(
+        customer_id = db_customer.customer_id,
+        first_name = db_customer.first_name,
+        last_name = db_customer.last_name,
+        birth_date = db_customer.birth_date,
+        address = db_customer.address,
+        phone_number = db_customer.phone_number,
+        email = db_customer.email,
+        job_title = db_customer.job_title,
+        active_date = db_customer.active_date,
+        inactive_date = db_customer.inactive_date,
+        created_datetime = db_customer.created_datetime,
+        updated_datetime = current_systime()
+    )
+    db.add(db_customer_hist)
+    db.commit()
+
     return db_customer
