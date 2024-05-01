@@ -38,18 +38,18 @@ async def get_all_customers(db: Session = Depends(get_db)):
     return select_all_customers(db=db)
 
 @customer_router.get(
-    "/get/id={customer_id}",
+    "/get/system_id={system_id}",
     response_model=Customer,
-    name="Get customer by id",
+    name="Get customer by system id",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def get_customer_by_id(customer_id: int, db: Session = Depends(get_db)):
-    return select_customer_by_id(customer_id=customer_id, db=db)
+async def get_customer_by_id(system_id: int, db: Session = Depends(get_db)):
+    return select_customer_by_id(system_id=system_id, db=db)
 
 @customer_router.get(
     "/get/first_name={first_name}",
-    response_model=Customer,
+    response_model=typing.List[Customer],
     name="Get customer by first name",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
@@ -59,7 +59,7 @@ async def get_customer_by_first_name(first_name: str, db: Session = Depends(get_
 
 @customer_router.get(
     "/get/phone_number={phone_number}",
-    response_model=Customer,
+    response_model=typing.List[Customer],
     name="Get customer by phone number",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
@@ -69,7 +69,7 @@ async def get_customer_by_phone_number(phone_number: str, db: Session = Depends(
 
 @customer_router.get(
     "/get/email={email}",
-    response_model=Customer,
+    response_model=typing.List[Customer],
     name="Get customer by email",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
@@ -78,21 +78,21 @@ async def get_customer_by_email(email: str, db: Session = Depends(get_db)):
     return select_customer_by_email(email=email, db=db)
 
 @customer_router.post(
-    "/update/id={customer_id}",
+    "/update/system_id={system_id}",
     response_model=Customer,
     name="Update customer",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def update_a_customer(customer_id: int, customer:CustomerUpdate,  db: Session = Depends(get_db)):
-    return update_customer(customer_id=customer_id, customer=customer, db=db)
+async def update_a_customer(system_id: int, customer:CustomerUpdate,  db: Session = Depends(get_db)):
+    return update_customer(system_id=system_id, customer=customer, db=db)
 
 @customer_router.post(
-    "/delete/id={customer_id}",
+    "/delete/system_id={system_id}",
     response_model=Customer,
     name="Delete customer",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def delete_a_customer(customer_id: int,  db: Session = Depends(get_db)):
-    return delete_customer(customer_id=customer_id, db=db)
+async def delete_a_customer(system_id: int,  db: Session = Depends(get_db)):
+    return delete_customer(system_id=system_id, db=db)
