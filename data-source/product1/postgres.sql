@@ -1,3 +1,27 @@
+drop table customer;
+drop sequence customer_system_id_serial;
+drop sequence customer_id_serial;
+drop table customer_hist;
+drop sequence customer_hist_system_id_serial;
+drop table service;
+drop sequence service_system_id_serial;
+drop sequence service_id_serial;
+drop table service_hist;
+drop sequence service_hist_system_id_serial;
+drop table period;
+drop sequence period_system_id_serial;
+drop sequence period_id_serial;
+drop table period_hist;
+drop sequence period_hist_system_id_serial;
+drop table trans;
+drop sequence trans_system_id_serial;
+drop sequence trans_id_serial;
+drop table review;
+drop sequence review_system_id_serial;
+drop sequence review_id_serial;
+drop table review_hist;
+drop sequence review_hist_system_id_serial;
+
 create sequence customer_system_id_serial start 1;
 create sequence customer_id_serial start 1;
 create table customer(
@@ -15,8 +39,9 @@ create table customer(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence customer_hist_system_id_serial start 1;
 create table customer_hist(
-	system_id bigint primary key,
+	system_id bigint default nextval('customer_hist_system_id_serial') primary key,
 	customer_id bigint,
 	first_name varchar(99),
 	last_name varchar(99),
@@ -44,8 +69,9 @@ create table service(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence service_hist_system_id_serial start 1;
 create table service_hist(
-	system_id bigint primary key,
+	system_id bigint default nextval('service_hist_system_id_serial') primary key,
 	service_id bigint,
 	name varchar(99),
 	price decimal(38,5),
@@ -69,8 +95,9 @@ create table period(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence period_hist_system_id_serial start 1;
 create table period_hist(
-	system_id bigint primary key,
+	system_id bigint default nextval('period_hist_system_id_serial') primary key,
 	period_id bigint,
 	name varchar(99),
 	factor decimal(38,5),
@@ -106,8 +133,9 @@ create table review(
 	created_datetime timestamp,
 	updated_datetime timestamp
 );
+create sequence review_hist_system_id_serial start 1;
 create table review_hist(
-	system_id bigint primary key,
+	system_id bigint default nextval('review_hist_system_id_serial') primary key,
 	review_id bigint,
 	trans_id bigint,
 	score int,
