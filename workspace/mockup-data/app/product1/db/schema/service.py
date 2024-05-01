@@ -1,10 +1,12 @@
 from pydantic import BaseModel
+from datetime import date
 
 class ServiceBase(BaseModel):
     name: str = None
     price: float = None
     image: str = None
-    active_status: int = None 
+    active_date: date = None
+    inactive_date: date = None
 
 class Service(ServiceBase):
     service_id: int
