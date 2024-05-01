@@ -48,7 +48,7 @@ async def get_service_by_id(system_id: int, db: Session = Depends(get_db)):
 
 @service_router.get(
     "/get/name={name}",
-    response_model=Service,
+    response_model=typing.List[Service],
     name="Get service by name",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
