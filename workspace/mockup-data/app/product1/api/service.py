@@ -37,14 +37,14 @@ async def get_all_services(db: Session = Depends(get_db)):
     return select_all_services(db=db)
 
 @service_router.get(
-    "/get/system_id={system_id}",
+    "/get/service_id={service_id}",
     response_model=Service,
-    name="Get service by system id",
+    name="Get service by service id",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def get_service_by_id(system_id: int, db: Session = Depends(get_db)):
-    return select_service_by_id(system_id=system_id, db=db)
+async def get_service_by_id(service_id: int, db: Session = Depends(get_db)):
+    return select_service_by_id(service_id=service_id, db=db)
 
 @service_router.get(
     "/get/name={name}",
@@ -63,15 +63,15 @@ async def get_service_by_first_name(name: str, db: Session = Depends(get_db)):
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def update_a_service(system_id: int, service:ServiceUpdate,  db: Session = Depends(get_db)):
-    return update_service(system_id=system_id, service=service, db=db)
+async def update_a_service(service_id: int, service:ServiceUpdate,  db: Session = Depends(get_db)):
+    return update_service(service_id=service_id, service=service, db=db)
 
 @service_router.post(
-    "/delete/system_id={system_id}",
+    "/delete/service_id={service_id}",
     response_model=Service,
     name="Delete service",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def delete_a_service(system_id: int,  db: Session = Depends(get_db)):
-    return delete_service(system_id=system_id, db=db)
+async def delete_a_service(service_id: int,  db: Session = Depends(get_db)):
+    return delete_service(service_id=service_id, db=db)
