@@ -1,15 +1,16 @@
 from pydantic import BaseModel
-from datetime import date
+from datetime import date, datetime
 
 class ServiceBase(BaseModel):
-    service_id: int | None = None
     name: str = None
     price: float = None
     image: str = None
     active_date: date = None
-    inactive_date: date | None = None
+    inactive_date: date = None
 
 class Service(ServiceBase):
+    updated_datetime: datetime = None
+    service_id: int = None
 
     class Config:
         orm_mode = True
