@@ -30,7 +30,6 @@ create table service(
 	image varchar(99),
 	active_date date,
 	inactive_date date,
-	is_active int,
 	updated_datetime timestamp
 );
 
@@ -42,7 +41,6 @@ create table period(
 	extra decimal(38,5),
 	active_date date,
 	inactive_date date,
-	is_active int,
 	updated_datetime timestamp
 );
 
