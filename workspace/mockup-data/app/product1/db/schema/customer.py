@@ -15,14 +15,14 @@ class Customer(CustomerBase):
     customer_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class CustomerCreate(CustomerBase):
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class CustomerUpdate(CustomerBase):
 
     class Config:
-        orm_mode = True
+        from_attributes = True

@@ -13,14 +13,14 @@ class Service(ServiceBase):
     service_id: int = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ServiceCreate(ServiceBase):
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ServiceUpdate(ServiceBase):
 
     class Config:
-        orm_mode = True
+        from_attributes = True
