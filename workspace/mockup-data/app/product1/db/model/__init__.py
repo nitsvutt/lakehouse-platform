@@ -1,15 +1,11 @@
 from db.model.customer import (
-    Customer,
-    CustomerHist
+    Customer
 )
 from db.model.service import (
-    Service,
-    ServiceHist
+    Service
 )
 
 __all__ = [
     Customer,
-    CustomerHist,
-    Service,
-    ServiceHist
+    Service
 ]
