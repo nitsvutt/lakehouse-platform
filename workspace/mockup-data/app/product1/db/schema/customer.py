@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import date
+from datetime import date, datetime
 
 class CustomerBase(BaseModel):
     first_name: str = None
@@ -9,23 +9,20 @@ class CustomerBase(BaseModel):
     phone_number: str = None
     email: str = None
     job_title: str = None
-    active_date: date = None
-    inactive_date: date | None = None
 
 class Customer(CustomerBase):
+    updated_datetime: datetime = None
     customer_id: int
 
     class Config:
         orm_mode = True
 
 class CustomerCreate(CustomerBase):
-    customer_id: int | None = None
 
     class Config:
         orm_mode = True
 
 class CustomerUpdate(CustomerBase):
-    customer_id: int | None = None
 
     class Config:
         orm_mode = True
