@@ -6,7 +6,7 @@ from db.schema import Customer, CustomerCreate, CustomerUpdate
 from db.session import get_db
 from db.crud import (
     create_customer,
-    select_all_customers,
+    select_all_customer,
     select_customer_by_id,
     select_customer_by_first_name,
     select_customer_by_phone_number,
@@ -30,12 +30,12 @@ async def create_a_customer(customer: CustomerCreate, db: Session = Depends(get_
 @customer_router.get(
     "/get/all",
     response_model=typing.List[Customer],
-    name="Get all customers",
+    name="Get all customer",
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def get_all_customers(db: Session = Depends(get_db)):
-    return select_all_customers(db=db)
+async def get_all_customer(db: Session = Depends(get_db)):
+    return select_all_customer(db=db)
 
 @customer_router.get(
     "/get/customer_id={customer_id}",

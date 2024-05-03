@@ -30,7 +30,7 @@ def create_service(service: schema.ServiceCreate, db: Session):
     db.refresh(db_service)
     return db_service
 
-def select_all_services(db: Session):
+def select_all_service(db: Session):
     return db.query(model.Service).all()
 
 def select_service_by_id(service_id: int, db: Session):

@@ -41,7 +41,7 @@ def create_customer(customer: schema.CustomerCreate, db: Session):
     db.refresh(db_customer)
     return db_customer
 
-def select_all_customers(db: Session):
+def select_all_customer(db: Session):
     return db.query(model.Customer).all()
 
 def select_customer_by_id(customer_id: int, db: Session):
