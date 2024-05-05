@@ -12,7 +12,7 @@ class CustomerBase(BaseModel):
 
 class Customer(CustomerBase):
     updated_datetime: datetime = None
-    customer_id: int
+    customer_id: int = None
 
     class Config:
         from_attributes = True
