@@ -10,10 +10,14 @@ from db.model.period import (
 from db.model.trans import (
     Trans
 )
+from db.model.review import (
+    Review
+)
 
 __all__ = [
     Customer,
     Service,
     Period,
-    Trans
+    Trans,
+    Review
 ]

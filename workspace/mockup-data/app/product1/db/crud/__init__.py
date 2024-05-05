@@ -33,6 +33,14 @@ from db.crud.trans import (
     update_trans,
     delete_trans
 )
+from db.crud.review import (
+    create_review,
+    select_all_review,
+    select_review_by_id,
+    select_review_by_trans_id,
+    update_review,
+    delete_review
+)
 
 __all__ = [
     create_customer,
@@ -61,5 +69,11 @@ __all__ = [
     select_trans_by_customer_id,
     select_trans_by_service_id,
     update_trans,
-    delete_trans
+    delete_trans,
+    create_review,
+    select_all_review,
+    select_review_by_id,
+    select_review_by_trans_id,
+    update_review,
+    delete_review
 ]

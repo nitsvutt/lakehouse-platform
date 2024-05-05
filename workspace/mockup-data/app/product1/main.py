@@ -4,7 +4,8 @@ from api import (
     customer_router,
     service_router,
     period_router,
-    trans_router
+    trans_router,
+    review_router
 )
 from db.session import SessionLocal
 
@@ -42,4 +43,10 @@ product1.include_router(
     trans_router,
     prefix="/api/trans",
     tags=["Trans"]
+)
+
+product1.include_router(
+    review_router,
+    prefix="/api/review",
+    tags=["Review"]
 )

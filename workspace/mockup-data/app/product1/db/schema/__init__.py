@@ -18,6 +18,11 @@ from db.schema.trans import (
     TransCreate,
     TransUpdate
 )
+from db.schema.review import (
+    Review,
+    ReviewCreate,
+    ReviewUpdate
+)
 
 __all__ = [
     Customer,
@@ -31,5 +36,8 @@ __all__ = [
     PeriodUpdate,
     Trans,
     TransCreate,
-    TransUpdate
+    TransUpdate,
+    Review,
+    ReviewCreate,
+    ReviewUpdate
 ]
