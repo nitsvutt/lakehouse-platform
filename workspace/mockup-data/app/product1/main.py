@@ -3,7 +3,8 @@ from fastapi import FastAPI, Request, Response
 from api import (
     customer_router,
     service_router,
-    period_router
+    period_router,
+    trans_router
 )
 from db.session import SessionLocal
 
@@ -35,4 +36,10 @@ product1.include_router(
     period_router,
     prefix="/api/period",
     tags=["Period"]
+)
+
+product1.include_router(
+    trans_router,
+    prefix="/api/trans",
+    tags=["Trans"]
 )

@@ -24,6 +24,15 @@ from db.crud.period import (
     update_period,
     delete_period
 )
+from db.crud.trans import (
+    create_trans,
+    select_all_trans,
+    select_trans_by_id,
+    select_trans_by_customer_id,
+    select_trans_by_service_id,
+    update_trans,
+    delete_trans
+)
 
 __all__ = [
     create_customer,
@@ -45,5 +54,12 @@ __all__ = [
     select_period_by_id,
     select_period_by_name,
     update_period,
-    delete_period
+    delete_period,
+    create_trans,
+    select_all_trans,
+    select_trans_by_id,
+    select_trans_by_customer_id,
+    select_trans_by_service_id,
+    update_trans,
+    delete_trans
 ]

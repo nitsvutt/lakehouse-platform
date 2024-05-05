@@ -13,6 +13,11 @@ from db.schema.period import (
     PeriodCreate,
     PeriodUpdate
 )
+from db.schema.trans import (
+    Trans,
+    TransCreate,
+    TransUpdate
+)
 
 __all__ = [
     Customer,
@@ -23,5 +28,8 @@ __all__ = [
     ServiceUpdate,
     Period,
     PeriodCreate,
-    PeriodUpdate
+    PeriodUpdate,
+    Trans,
+    TransCreate,
+    TransUpdate
 ]

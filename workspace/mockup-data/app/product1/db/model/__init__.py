@@ -7,9 +7,13 @@ from db.model.service import (
 from db.model.period import (
     Period
 )
+from db.model.trans import (
+    Trans
+)
 
 __all__ = [
     Customer,
     Service,
-    Period
+    Period,
+    Trans
 ]
