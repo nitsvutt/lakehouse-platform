@@ -25,6 +25,7 @@ def create_trans(trans: schema.TransCreate, db: Session):
             status_code=404,
             detail="Service not found"
         )
+    
     db_period = (
         db.query(model.Period)
         .filter(model.Period.period_id == trans.period_id)
@@ -101,6 +102,39 @@ def update_trans(trans_id: int, trans: schema.TransUpdate, db: Session):
             status_code=404,
             detail="Trans not found"
         )
+    if trans.customer_id is not None:
+        db_customer = (
+            db.query(model.Customer)
+            .filter(model.Customer.customer_id == trans.customer_id)
+            .first()
+        )
+        if not db_customer:
+            raise HTTPException(
+                status_code=404,
+                detail="Customer not found"
+            )
+    if trans.service_id is not None:
+        db_service = (
+            db.query(model.Service)
+            .filter(model.Service.service_id == trans.service_id)
+            .first()
+        )
+        if not db_service:
+            raise HTTPException(
+                status_code=404,
+                detail="Service not found"
+            )
+    if trans.period_id is not None:
+        db_period = (
+            db.query(model.Period)
+            .filter(model.Period.period_id == trans.period_id)
+            .first()
+        )
+        if not db_period:
+            raise HTTPException(
+                status_code=404,
+                detail="Period not found"
+            )
     
     update_data = trans.dict()
     for key, value in update_data.items():
