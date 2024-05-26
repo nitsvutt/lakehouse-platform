@@ -9,7 +9,6 @@
       "connector.class": "io.debezium.connector.mysql.MySqlConnector",
       "key.converter": "io.confluent.connect.avro.AvroConverter",
       "value.converter": "io.confluent.connect.avro.AvroConverter",
-      "topic.prefix": "product2",
       "database.hostname": "host.docker.internal",
       "database.port": "3306",
       "database.user": "****",
