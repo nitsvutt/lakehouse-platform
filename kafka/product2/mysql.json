@@ -1,0 +1,20 @@
+{
+    "name": "product2-source",
+    "config": {
+      "key.converter.schema.registry.url": "http://schema-registry:8081",
+      "value.converter.schema.registry.url": "http://schema-registry:8081",
+      "schema.history.internal.kafka.bootstrap.servers": "broker-1:29092,broker-2:29092,broker-3:29092",
+      "schema.history.internal.kafka.topic": "schema-history.product2",
+      "name": "product2-source",
+      "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+      "key.converter": "io.confluent.connect.avro.AvroConverter",
+      "value.converter": "io.confluent.connect.avro.AvroConverter",
+      "topic.prefix": "product2",
+      "database.hostname": "host.docker.internal",
+      "database.port": "3306",
+      "database.user": "****",
+      "database.password": "*****",
+      "database.server.id": "184054",
+      "database.include.list": "product2"
+    }
+  }
