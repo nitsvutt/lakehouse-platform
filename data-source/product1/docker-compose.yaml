@@ -1,7 +1,7 @@
 services:
   postgresql:
     image: postgres:15-alpine3.18
-    restart: always
+    hostname: postgresql
     ports:
       - "5432:5432"
     volumes:
@@ -10,3 +10,20 @@ services:
       - POSTGRES_USER=$POSTGRESQL_USER
       - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
       - POSTGRES_DB=product1
+    restart: always
+  
+  product1:
+    image: nitsvutt/fastapi-python:3.10.4
+    hostname: product1
+    depends_on:
+      - postgresql
+    ports:
+      - "8901:8901"
+    volumes:
+      - .:/app
+    environment:
+      POSTGRESQL_SERVER: $POSTGRESQL_SERVER
+      POSTGRESQL_PORT: $POSTGRESQL_PORT
+      POSTGRESQL_USER: $POSTGRESQL_USER
+      POSTGRESQL_PASSWORD: $POSTGRESQL_PASSWORD
+    command: uvicorn main:product1 --host 0.0.0.0 --port 8901 --reload
