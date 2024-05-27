@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.3.0
-    restart: always
+    hostname: mysql
     ports:
       - "3306:3306"
     volumes:
@@ -11,3 +11,20 @@ services:
       - MYSQL_USER=$MYSQL_USER
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - MYSQL_DATABASE=product2
+    restart: always
+
+  product2:
+    image: nitsvutt/fastapi-python:3.10.4
+    hostname: product2
+    depends_on:
+      - mysql
+    ports:
+      - "8902:8902"
+    volumes:
+      - .:/app
+    environment:
+      MYSQL_SERVER: $MYSQL_SERVER
+      MYSQL_PORT: $MYSQL_PORT
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    command: uvicorn main:product2 --host 0.0.0.0 --port 8902 --reload
