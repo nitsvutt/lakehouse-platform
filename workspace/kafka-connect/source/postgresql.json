@@ -1,0 +1,19 @@
+{
+    "name": "product1-source",
+    "config": {
+      "key.converter.schema.registry.url": "http://schema-registry:8081",
+      "value.converter.schema.registry.url": "http://schema-registry:8081",
+      "name": "product1-source",
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "key.converter": "io.confluent.connect.avro.AvroConverter",
+      "value.converter": "io.confluent.connect.avro.AvroConverter",
+      "topic.prefix": "postgresql",
+      "database.hostname": "host.docker.internal",
+      "database.port": "5432",
+      "database.user": "****",
+      "database.password": "****",
+      "database.dbname": "product1",
+      "schema.include.list": "public",
+      "plugin.name": "pgoutput"
+    }
+  }
