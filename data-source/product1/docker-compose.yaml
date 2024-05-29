@@ -11,6 +11,10 @@ services:
       - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
       - POSTGRES_DB=product1
     restart: always
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
   
   product1:
     image: nitsvutt/fastapi-python:3.10.4
