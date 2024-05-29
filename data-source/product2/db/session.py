@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from core.config import MYSQL_SERVER, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD
 
-url = f'mysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_SERVER}:{MYSQL_PORT}/product2'
+url = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_SERVER}:{MYSQL_PORT}/product2'
 
 engine = create_engine(url)
 
