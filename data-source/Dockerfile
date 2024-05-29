@@ -1,7 +1,7 @@
-ARG JDK_VERSION=11.0.16-jre-slim-buster
+ARG UBUNTU_VERSION=22.04
 ARG PYTHON_VERSION=3.10.4
 
-FROM openjdk:$JDK_VERSION
+FROM ubuntu:$UBUNTU_VERSION
 
 # install base packages
 RUN apt-get update
@@ -18,6 +18,7 @@ RUN apt-get install build-essential \
                     libbz2-dev \
                     procps \
                     software-properties-common \
+                    libpq-dev \
                     ca-certificates -y
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -38,10 +39,6 @@ RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.
 # download and install pip
 RUN curl https://bootstrap.pypa.io/get-pip.py | python
 RUN update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.10 1
-
-# install additional packages
-RUN apt-get update
-RUN apt-get install libpq-dev -y
 
 # init directories and files
 RUN mkdir -p /app
