@@ -7,7 +7,7 @@
       "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
       "key.converter": "io.confluent.connect.avro.AvroConverter",
       "value.converter": "io.confluent.connect.avro.AvroConverter",
-      "topic.prefix": "postgresql",
+      "topic.prefix": "product1",
       "database.hostname": "host.docker.internal",
       "database.port": "5432",
       "database.user": "****",
