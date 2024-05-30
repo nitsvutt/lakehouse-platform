@@ -192,13 +192,10 @@ services:
       - broker-1
       - broker-2
       - broker-3
-      - schema-registry
-      - connect
-      # - ksqldb-server
     ports:
       - "9022:9000"
     environment:
-      KAFKA_BROKERCONNECT: "host.docker.internal:9092"
+      KAFKA_BROKERCONNECT: "broker-1:29092"
 
   # ksqldb-server:
   #   image: confluentinc/cp-ksqldb-server:7.6.0
