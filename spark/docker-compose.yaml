@@ -1,32 +1,32 @@
 version: "3.5"
 services:
   spark-master:
-    image: nitsvutt/spark-3.4.1-hadoop3
+    image: nitsvutt/spark-3.4.1-hadoop3:arm
     hostname: spark-master
     ports:
       - "9090:8080"
       - "7077:7077"
     volumes:
-       - ../../common/spark_logs:/opt/spark-events
-       - ../../common/spark_apps:/opt/spark-apps
+       - $COMMON_PATH/spark_logs:/opt/spark-events
+       - $COMMON_PATH/spark_apps:/opt/spark-apps
     environment:
       - SPARK_MODE=master
 
   spark-history-server:
-    image: nitsvutt/spark-3.4.1-hadoop3
+    image: nitsvutt/spark-3.4.1-hadoop3:arm
     hostname: spark-history-server
     ports:
       - "19090:18080"
     depends_on:
       - spark-master
     volumes:
-       - ../../common/spark_logs:/opt/spark-events
-       - ../../common/spark_apps:/opt/spark-apps
+       - $COMMON_PATH/spark_logs:/opt/spark-events
+       - $COMMON_PATH/spark_apps:/opt/spark-apps
     environment:
       - SPARK_MODE=history
 
   spark-worker-1:
-    image: nitsvutt/spark-3.4.1-hadoop3
+    image: nitsvutt/spark-3.4.1-hadoop3:arm
     hostname: spark-worker-1
     ports:
       - "9091:8081"
@@ -34,8 +34,8 @@ services:
     depends_on:
       - spark-master
     volumes:
-       - ../../common/spark_logs:/opt/spark-events
-       - ../../common/spark_apps:/opt/spark-apps
+       - $COMMON_PATH/spark_logs:/opt/spark-events
+       - $COMMON_PATH/spark_apps:/opt/spark-apps
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER=spark://spark-master:7077
@@ -45,7 +45,7 @@ services:
       - SPARK_EXECUTOR_MEMORY=1G
 
   spark-worker-2:
-    image: nitsvutt/spark-3.4.1-hadoop3
+    image: nitsvutt/spark-3.4.1-hadoop3:arm
     hostname: spark-worker-2
     ports:
       - "9092:8081"
@@ -53,8 +53,8 @@ services:
     depends_on:
       - spark-master
     volumes:
-       - ../../common/spark_logs:/opt/spark-events
-       - ../../common/spark_apps:/opt/spark-apps
+       - $COMMON_PATH/spark_logs:/opt/spark-events
+       - $COMMON_PATH/spark_apps:/opt/spark-apps
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER=spark://spark-master:7077
@@ -64,7 +64,7 @@ services:
       - SPARK_EXECUTOR_MEMORY=1G
     
   spark-worker-3:
-    image: nitsvutt/spark-3.4.1-hadoop3
+    image: nitsvutt/spark-3.4.1-hadoop3:arm
     hostname: spark-worker-3
     ports:
       - "9093:8081"
@@ -72,8 +72,8 @@ services:
     depends_on:
       - spark-master
     volumes:
-      - ../../common/spark_logs:/opt/spark-events
-      - ../../common/spark_apps:/opt/spark-apps
+      - $COMMON_PATH/spark_logs:/opt/spark-events
+      - $COMMON_PATH/spark_apps:/opt/spark-apps
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER=spark://spark-master:7077
