@@ -5,11 +5,7 @@ services:
     ports:
       - "8977:8977"
     volumes:
-      - ./workspace/spark-deployment/notebooks:/project
-    develop:
-      watch:
-        - action: rebuild
-          path: requirements.txt
+      - ../workspace/spark-deployment/notebooks:/project
     command: jupyter notebook --no-browser --NotebookApp.token 'password' --ip 0.0.0.0 --port 8977 --allow-root
     networks:
       - iceberg_lakehouse_platform
