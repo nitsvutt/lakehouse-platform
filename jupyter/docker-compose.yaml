@@ -1,11 +1,13 @@
 services:
   jupyter:
-    image: nitsvutt/python:3.10.4
+    image: nitsvutt/spark-python:3.4.1-3.10.4
     hostname: jupyter
     ports:
       - "8977:8977"
     volumes:
       - ../workspace/spark-deployment/notebooks:/project
+    environment:
+      - SPARK_MODE=submit
     command: jupyter notebook --no-browser --NotebookApp.token 'password' --ip 0.0.0.0 --port 8977 --allow-root
     networks:
       - iceberg_lakehouse_platform
