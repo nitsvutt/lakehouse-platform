@@ -18,6 +18,7 @@ RUN apt-get install build-essential \
                     libbz2-dev \
                     procps \
                     software-properties-common \
+                    libpq-dev \
                     ca-certificates -y
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -38,10 +39,6 @@ RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.
 # download and install pip
 RUN curl https://bootstrap.pypa.io/get-pip.py | python
 RUN update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.10 1
-
-# install pyspark dependencies
-# RUN python -m pip install --upgrade pip
-# RUN pip install pandas pyarrow grpcio-status
 
 # download spark
 ENV SPARK_VERSION=3.4.1
