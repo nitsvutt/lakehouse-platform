@@ -70,27 +70,6 @@ services:
       - SPARK_EXECUTOR_MEMORY=1G
     networks:
       - iceberg_lakehouse_platform
-    
-  spark-worker-3:
-    image: nitsvutt/spark-3.4.1-hadoop3:arm
-    hostname: spark-worker-3
-    ports:
-      - "9093:8081"
-      - "7003:7000"
-    depends_on:
-      - spark-master
-    volumes:
-      - $COMMON_PATH/spark_logs:/opt/spark-events
-      - $COMMON_PATH/spark_apps:/opt/spark-apps
-    environment:
-      - SPARK_MODE=worker
-      - SPARK_MASTER=spark://spark-master:7077
-      - SPARK_WORKER_CORES=3
-      - SPARK_WORKER_MEMORY=3G
-      - SPARK_DRIVER_MEMORY=1G
-      - SPARK_EXECUTOR_MEMORY=1G
-    networks:
-      - iceberg_lakehouse_platform
 
 networks:
   iceberg_lakehouse_platform:
