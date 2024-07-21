@@ -1,0 +1,74 @@
+services:
+  namenode:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: namenode
+    ports:
+      - 9870:9870
+      - 9000:9000
+    volumes:
+      - $COMMON_PATH/hadoop/namenode:/hadoop/dfs/name
+    environment:
+      - HADOOP_MODE=namenode
+    networks:
+      - iceberg_lakehouse_platform
+
+  datanode:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: datanode
+    depends_on:
+      - namenode
+    ports:
+      - 8065:8065
+    volumes:
+      - $COMMON_PATH/hadoop/datanode:/hadoop/dfs/data
+    environment:
+      - HADOOP_MODE=datanode
+    networks:
+      - iceberg_lakehouse_platform
+
+  resourcemanager:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: resourcemanager
+    ports:
+      - 8088:8088
+    depends_on:
+      - namenode
+      - datanode
+    environment:
+      - HADOOP_MODE=resourcemanager
+    networks:
+      - iceberg_lakehouse_platform
+
+  nodemanager:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: nodemanager
+    ports:
+      - 8042:8042
+    depends_on:
+      - namenode
+      - datanode
+      - resourcemanager
+    environment:
+      - HADOOP_MODE=nodemanager
+    networks:
+      - iceberg_lakehouse_platform
+  
+  timelineserver:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: timelineserver
+    ports:
+      - 8188:8188
+    depends_on:
+      - namenode
+      - datanode
+      - resourcemanager
+    environment:
+      - HADOOP_MODE=timelineserver
+    volumes:
+      - $COMMON_PATH/hadoop/timelineserver:/hadoop/yarn/timeline
+    networks:
+      - iceberg_lakehouse_platform
+
+networks:
+  iceberg_lakehouse_platform:
+    external: true
