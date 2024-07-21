@@ -5,7 +5,7 @@ services:
     ports:
       - "8977:8977"
     volumes:
-      - ./project:/project
+      - ./workspace/spark-deployment/notebooks:/project
     develop:
       watch:
         - action: rebuild
