@@ -11,6 +11,8 @@ services:
        - $COMMON_PATH/spark_apps:/opt/spark-apps
     environment:
       - SPARK_MODE=master
+    networks:
+      - iceberg_lakehouse_platform
 
   spark-history-server:
     image: nitsvutt/spark-3.4.1-hadoop3:arm
@@ -24,6 +26,8 @@ services:
        - $COMMON_PATH/spark_apps:/opt/spark-apps
     environment:
       - SPARK_MODE=history
+    networks:
+      - iceberg_lakehouse_platform
 
   spark-worker-1:
     image: nitsvutt/spark-3.4.1-hadoop3:arm
@@ -43,6 +47,8 @@ services:
       - SPARK_WORKER_MEMORY=3G
       - SPARK_DRIVER_MEMORY=1G
       - SPARK_EXECUTOR_MEMORY=1G
+    networks:
+      - iceberg_lakehouse_platform
 
   spark-worker-2:
     image: nitsvutt/spark-3.4.1-hadoop3:arm
@@ -62,6 +68,8 @@ services:
       - SPARK_WORKER_MEMORY=3G
       - SPARK_DRIVER_MEMORY=1G
       - SPARK_EXECUTOR_MEMORY=1G
+    networks:
+      - iceberg_lakehouse_platform
     
   spark-worker-3:
     image: nitsvutt/spark-3.4.1-hadoop3:arm
@@ -81,3 +89,9 @@ services:
       - SPARK_WORKER_MEMORY=3G
       - SPARK_DRIVER_MEMORY=1G
       - SPARK_EXECUTOR_MEMORY=1G
+    networks:
+      - iceberg_lakehouse_platform
+
+networks:
+  iceberg_lakehouse_platform:
+    external: true

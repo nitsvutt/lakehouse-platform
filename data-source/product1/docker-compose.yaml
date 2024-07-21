@@ -16,6 +16,8 @@ services:
       - "postgres"
       - "-c"
       - "wal_level=logical"
+    networks:
+      - iceberg_lakehouse_platform
   
   product1:
     image: nitsvutt/fastapi-python:3.10.4
@@ -32,3 +34,9 @@ services:
       POSTGRESQL_USER: $POSTGRESQL_USER
       POSTGRESQL_PASSWORD: $POSTGRESQL_PASSWORD
     command: uvicorn main:product1 --host 0.0.0.0 --port 8901 --reload
+    networks:
+      - iceberg_lakehouse_platform
+
+networks:
+  iceberg_lakehouse_platform:
+    external: true

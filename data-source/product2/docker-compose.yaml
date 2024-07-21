@@ -12,6 +12,8 @@ services:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - MYSQL_DATABASE=product2
     restart: always
+    networks:
+      - iceberg_lakehouse_platform
 
   product2:
     image: nitsvutt/fastapi-python:3.10.4
@@ -28,3 +30,9 @@ services:
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
     command: uvicorn main:product2 --host 0.0.0.0 --port 8902 --reload
+    networks:
+      - iceberg_lakehouse_platform
+
+networks:
+  iceberg_lakehouse_platform:
+    external: true
