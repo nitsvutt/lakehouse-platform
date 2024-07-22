@@ -1,7 +1,8 @@
 services:
   postgresql:
-    image: postgres:15-alpine3.18
     hostname: postgresql
+    image: postgres:15-alpine3.18
+    container_name: postgresql
     ports:
       - 5432:5432
     volumes:
@@ -16,13 +17,14 @@ services:
 
   hive-metastore:
     hostname: hive-metastore
-    image: nitsvutt/hive-metastore:3.0.0
+    image: nitsvutt/hive:4.0.0
     container_name: hive-metastore
     ports:
       - 9083:9083
     environment:
       - DATABASE_USER=$POSTGRESQL_USER
       - DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
+      - HIVE_MODE=metastore
     depends_on:
       - postgresql
     networks:
