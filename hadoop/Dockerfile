@@ -5,19 +5,7 @@ FROM openjdk:$JDK_VERSION
 # install base packages
 RUN apt-get update
 RUN apt-get install build-essential \
-                    zlib1g-dev \
-                    libncurses5-dev \
-                    libgdbm-dev \
-                    libnss3-dev \
-                    libssl-dev \
-                    libreadline-dev \
-                    libffi-dev \
-                    libsqlite3-dev \
-                    wget \
-                    libbz2-dev \
-                    procps \
-                    software-properties-common \
-                    ca-certificates -y
+                    wget -y
 RUN rm -rf /var/lib/apt/lists/*
 
 # download Hadoop
@@ -52,6 +40,6 @@ EXPOSE 9000 9870 9866 9867 9865 8031 8088 8042 8188
 
 # copy config files and start file from host
 COPY ./config  $HADOOP_HOME/etc/hadoop/
-COPY start-hadoop.sh $HADOOP_HOME
+COPY ./start-hadoop.sh $HADOOP_HOME
 
-CMD ["/bin/bash", "$HADOOP_HOME/start-hadoop.sh"]
+CMD ["/bin/bash", "/opt/hadoop/start-hadoop.sh"]

@@ -16,7 +16,10 @@ elif [ "$HADOOP_MODE" = "nodemanager" ]; then
 elif [ "$HADOOP_MODE" = "timelineserver" ]; then
     $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR timelineserver
 
+elif [ "$HADOOP_MODE" = "client" ]; then
+    echo "HADOOP CLIENT"
+
 else
-    echo "Undefined Mode $HADOOP_MODE, must specify: namenode, datanode, resourcemanager, nodemanager, timelineserver"
+    echo "Undefined Mode $HADOOP_MODE, must specify: namenode, datanode, resourcemanager, nodemanager, timelineserver, client"
 
 fi
