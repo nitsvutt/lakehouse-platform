@@ -16,10 +16,10 @@ RUN tar -xf apache-hadoop.tgz -C /opt/hadoop --strip-components=1
 RUN rm -rf apache-hadoop.tgz
 
 # download Hive
-ENV HIVE_VERSION=4.0.0
-RUN wget -O apache-hive.tgz https://downloads.apache.org/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
-RUN mkdir -p /opt/hive
-RUN tar -xf apache-hive.tgz -C /opt/hive --strip-components=1
+ENV HIVE_METASTORE_VERSION=3.0.0
+RUN wget -O apache-hive.tgz https://downloads.apache.org/hive/hive-metastore-standalone-$HIVE_METASTORE_VERSION/hive-metastore-standalone-$HIVE_METASTORE_VERSION-bin.tar.gz
+RUN mkdir -p /opt/hive-metastore
+RUN tar -xf apache-hive.tgz -C /opt/hive-metastore --strip-components=1
 RUN rm -rf apache-hive.tgz
 
 # download PostgreSQL connector
@@ -33,8 +33,8 @@ ENV HADOOP_HOME=/opt/hadoop
 ENV PATH=${HADOOP_HOME}/bin:${PATH}
 
 # configure Hive
-ENV HIVE_HOME=/opt/hive
-ENV PATH=${HIVE_HOME}/bin:${PATH}
+ENV HIVE_METASTORE_VERSION=/opt/hive-metastore
+ENV PATH=${HIVE_METASTORE_VERSION}/bin:${PATH}
 
 # configure PosgreSQL connector
 ENV DATABASE_DRIVER=org.postgresql.Driver
@@ -44,7 +44,7 @@ ENV DATABASE_HOST=postgresql
 ENV DATABASE_PORT=5432
 
 # copy config file and start file from host
-COPY ./config/hive-site.xml  $HIVE_HOME/conf/hive-site.xml
-COPY start-hive.sh $HIVE_HOME
+COPY ./config/metastore-site.xml  $HIVE_METASTORE_VERSION/conf/metastore-site.xml
+COPY start-hive-metastore.sh $HIVE_METASTORE_VERSION
 
-CMD ["/bin/bash", "/opt/hive/start-hive.sh"]
+CMD ["/bin/bash", "/opt/hive/start-hive-metastore.sh"]
