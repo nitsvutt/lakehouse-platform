@@ -26,13 +26,13 @@ cd /opt/spark/bin \
     && ./spark-class org.apache.spark.deploy.worker.Worker \
     --webui-port $SPARK_WORKER_WEBUI_PORT $SPARK_MASTER_URL >> $SPARK_WORKER_LOG
 
-elif [ "$SPARK_MODE" = "submit" ];
+elif [ "$SPARK_MODE" = "client" ];
 then
 
-echo "SPARK SUBMIT"
+echo "SPARK CLIENT"
 
 else
 
-echo "Undefined Mode $SPARK_MODE, must specify: master, history, worker, submit"
+echo "Undefined Mode $SPARK_MODE, must specify: master, history, worker, client"
 
 fi

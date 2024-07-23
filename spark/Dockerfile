@@ -72,7 +72,7 @@ RUN ln -sf /dev/stdout ${SPARK_HISTORY_LOG}
 RUN mkdir /opt/spark-events
 
 # copy config file and start file from host
-COPY spark-defaults.conf /opt/spark/conf/
-COPY start-spark.sh /opt/spark/
+COPY spark-defaults.conf $SPARK_HOME/conf/
+COPY ./start-spark.sh $SPARK_HOME
 
 CMD ["/bin/bash", "/opt/spark/start-spark.sh"]
