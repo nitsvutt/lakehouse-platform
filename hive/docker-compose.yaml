@@ -26,7 +26,6 @@ services:
       - DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
     depends_on:
       - postgresql
-    restart: always
     networks:
       - iceberg_lakehouse_platform
 
