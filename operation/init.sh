@@ -1,10 +1,10 @@
 #!/bin/bash
 
-ICEBERG_LAKEHOUSE_PLATFORM_NETWORK=iceberg_lakehouse_platform
+DATA_PLATFORM_NETWORK=lakehouse_platform
 
-if [[ "$(docker network ls | grep "${ICEBERG_LAKEHOUSE_PLATFORM_NETWORK}")" == "" ]] ; then
-    echo "INFO: docker network create ${ICEBERG_LAKEHOUSE_PLATFORM_NETWORK}"
-    docker network create "${ICEBERG_LAKEHOUSE_PLATFORM_NETWORK}"
+if [[ "$(docker network ls | grep "${DATA_PLATFORM_NETWORK}")" == "" ]] ; then
+    echo "INFO: docker network create ${DATA_PLATFORM_NETWORK}"
+    docker network create "${DATA_PLATFORM_NETWORK}"
 else
-    echo "WARNNING: Network ${ICEBERG_LAKEHOUSE_PLATFORM_NETWORK} already exists"
+    echo "WARNNING: Network ${DATA_PLATFORM_NETWORK} already exists"
 fi

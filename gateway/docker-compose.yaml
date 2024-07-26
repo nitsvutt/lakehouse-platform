@@ -10,8 +10,8 @@ services:
       - SPARK_MODE=client
     command: jupyter notebook --no-browser --NotebookApp.token 'password' --ip 0.0.0.0 --port 8977 --allow-root
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
 networks:
-  iceberg_lakehouse_platform:
+  lakehouse_platform:
     external: true

@@ -74,10 +74,10 @@ x-airflow-common:
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
-    - $PROJECT_PATH/iceberg-lakehouse-platform/workspace/airflow/dags:/opt/airflow/dags
+    - $PROJECT_PATH/lakehouse-platform/workspace/airflow/dags:/opt/airflow/dags
     - $COMMON_PATH/airflow/logs:/opt/airflow/logs
-    - $PROJECT_PATH/iceberg-lakehouse-platform/workspace/airflow/configs:/opt/airflow/configs
-    - $PROJECT_PATH/iceberg-lakehouse-platform/workspace/airflow/plugins:/opt/airflow/plugins
+    - $PROJECT_PATH/lakehouse-platform/workspace/airflow/configs:/opt/airflow/configs
+    - $PROJECT_PATH/lakehouse-platform/workspace/airflow/plugins:/opt/airflow/plugins
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -86,7 +86,7 @@ x-airflow-common:
     postgres:
       condition: service_healthy
   networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
 services:
   postgres:
@@ -104,7 +104,7 @@ services:
       retries: 5
       start_period: 5s
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   redis:
     image: redis:latest
@@ -117,7 +117,7 @@ services:
       retries: 50
       start_period: 30s
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   airflow-webserver:
     <<: *airflow-common
@@ -135,7 +135,7 @@ services:
       airflow-init:
         condition: service_completed_successfully
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   airflow-scheduler:
     <<: *airflow-common
@@ -151,7 +151,7 @@ services:
       airflow-init:
         condition: service_completed_successfully
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   airflow-worker:
     <<: *airflow-common
@@ -175,7 +175,7 @@ services:
       airflow-init:
         condition: service_completed_successfully
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   airflow-triggerer:
     <<: *airflow-common
@@ -191,7 +191,7 @@ services:
       airflow-init:
         condition: service_completed_successfully
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   airflow-init:
     <<: *airflow-common
@@ -255,9 +255,9 @@ services:
       _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "0:0"
     volumes:
-      - $PROJECT_PATH/iceberg-lakehouse-platform/workspace/airflow/:/sources
+      - $PROJECT_PATH/lakehouse-platform/workspace/airflow/:/sources
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   airflow-cli:
     <<: *airflow-common
@@ -272,7 +272,7 @@ services:
       - -c
       - airflow
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   # You can enable flower by adding "--profile flower" option e.g. docker-compose --profile flower up
   # or by explicitly targeted on the command line e.g. docker-compose up flower.
@@ -295,8 +295,8 @@ services:
       airflow-init:
         condition: service_completed_successfully
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
 networks:
-  iceberg_lakehouse_platform:
+  lakehouse_platform:
     external: true

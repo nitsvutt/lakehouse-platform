@@ -1,1 +1,1 @@
-# iceberg-lakehouse-platform
+# lakehouse-platform

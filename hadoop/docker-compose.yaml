@@ -10,7 +10,7 @@ services:
     environment:
       - HADOOP_MODE=namenode
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   datanode:
     image: nitsvutt/hadoop:3.3.6
@@ -24,7 +24,7 @@ services:
     environment:
       - HADOOP_MODE=datanode
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   resourcemanager:
     image: nitsvutt/hadoop:3.3.6
@@ -37,7 +37,7 @@ services:
     environment:
       - HADOOP_MODE=resourcemanager
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   nodemanager:
     image: nitsvutt/hadoop:3.3.6
@@ -51,7 +51,7 @@ services:
     environment:
       - HADOOP_MODE=nodemanager
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
   
   timelineserver:
     image: nitsvutt/hadoop:3.3.6
@@ -67,8 +67,8 @@ services:
     volumes:
       - $COMMON_PATH/hadoop/timelineserver:/hadoop/yarn/timeline
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
 networks:
-  iceberg_lakehouse_platform:
+  lakehouse_platform:
     external: true

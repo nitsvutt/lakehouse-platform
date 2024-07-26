@@ -13,7 +13,7 @@ services:
       - POSTGRES_DB=metastore_db
       - PGDATA=/var/lib/postgresql/data/pgdata
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
   hive-metastore:
     hostname: hive-metastore
@@ -27,8 +27,8 @@ services:
     depends_on:
       - postgresql
     networks:
-      - iceberg_lakehouse_platform
+      - lakehouse_platform
 
 networks:
-  iceberg_lakehouse_platform:
+  lakehouse_platform:
     external: true

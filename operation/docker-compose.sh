@@ -32,9 +32,9 @@ else
                 if [ ${request_service} == ${available_service} ]; then
                     echo "INFO: docker compose ${prompt} ${request_service}"
                     if [[  ${data_source_services[@]} =~ ${request_service} ]]; then
-                        cd "${PROJECT_PATH}/iceberg-lakehouse-platform/data-source/${request_service}"
+                        cd "${PROJECT_PATH}/lakehouse-platform/data-source/${request_service}"
                     else
-                        cd "${PROJECT_PATH}/iceberg-lakehouse-platform/${request_service}"
+                        cd "${PROJECT_PATH}/lakehouse-platform/${request_service}"
                     fi
                     eval ${command}
                 fi
