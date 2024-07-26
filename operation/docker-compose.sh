@@ -24,23 +24,23 @@ shift
 available_services=("product1" "product2" "kafka" "hadoop" "hive" "spark" "airflow" "gateway")
 data_source_services=("product1" "product2")
 if [ $1 == "all" ]; then
-    echo "docker compose $prompt all services"
+    echo "INFO: docker compose ${prompt} all services"
 else
     for request_service in $@; do
-        if [[ ${available_services[@]} =~ $request_service ]]; then
+        if [[ ${available_services[@]} =~ ${request_service} ]]; then
             for available_service in ${available_services[@]}; do
-                if [ $request_service == $available_service ]; then
-                    echo "docker compose $prompt $request_service"
-                    if [[  ${data_source_services[@]} =~ $request_service ]]; then
-                        cd "$PROJECT_PATH/iceberg-lakehouse-platform/data-source/$request_service"
+                if [ ${request_service} == ${available_service} ]; then
+                    echo "INFO: docker compose ${prompt} ${request_service}"
+                    if [[  ${data_source_services[@]} =~ ${request_service} ]]; then
+                        cd "${PROJECT_PATH}/iceberg-lakehouse-platform/data-source/${request_service}"
                     else
-                        cd "$PROJECT_PATH/iceberg-lakehouse-platform/$request_service"
+                        cd "${PROJECT_PATH}/iceberg-lakehouse-platform/${request_service}"
                     fi
-                    eval $command
+                    eval ${command}
                 fi
             done
         else
-            echo "WARNNING: Undefined service $request_service"
+            echo "WARNNING: Undefined service ${request_service}"
         fi
     done
 fi
