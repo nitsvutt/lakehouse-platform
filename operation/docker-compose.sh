@@ -25,6 +25,15 @@ available_services=("product1" "product2" "kafka" "hadoop" "hive" "spark" "airfl
 data_source_services=("product1" "product2")
 if [ $1 == "all" ]; then
     echo "INFO: docker compose ${prompt} all services"
+    for available_service in ${available_services[@]}; do
+        echo "INFO: docker compose ${prompt} ${available_service}"
+        if [[  ${data_source_services[@]} =~ ${available_service} ]]; then
+            cd "${PROJECT_PATH}/lakehouse-platform/data-source/${available_service}"
+        else
+            cd "${PROJECT_PATH}/lakehouse-platform/${available_service}"
+        fi
+        eval ${command}
+    done
 else
     for request_service in $@; do
         if [[ ${available_services[@]} =~ ${request_service} ]]; then
