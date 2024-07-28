@@ -17,24 +17,24 @@ RUN rm -rf apache-hadoop.tgz
 
 # download Hive
 ENV HIVE_METASTORE_VERSION=3.0.0
-RUN wget -O apache-hive.tgz https://downloads.apache.org/hive/hive-metastore-standalone-$HIVE_METASTORE_VERSION/hive-metastore-standalone-$HIVE_METASTORE_VERSION-bin.tar.gz
+RUN wget -O apache-hive.tgz https://downloads.apache.org/hive/hive-standalone-metastore-${HIVE_METASTORE_VERSION}/hive-standalone-metastore-${HIVE_METASTORE_VERSION}-bin.tar.gz
 RUN mkdir -p /opt/hive-metastore
 RUN tar -xf apache-hive.tgz -C /opt/hive-metastore --strip-components=1
 RUN rm -rf apache-hive.tgz
 
 # download PostgreSQL connector
 ENV POSTGRES_CONNECTOR_VERSION=42.7.3
-RUN wget -O /opt/postgresql-$POSTGRES_CONNECTOR_VERSION.jar https://jdbc.postgresql.org/download/postgresql-$POSTGRES_CONNECTOR_VERSION.jar
+RUN wget -O /opt/postgresql-$POSTGRES_CONNECTOR_VERSION.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRES_CONNECTOR_VERSION}.jar
 RUN ln -s /opt/postgresql-$POSTGRES_CONNECTOR_VERSION.jar /opt/hadoop/share/hadoop/common/lib/
-RUN ln -s /opt/postgresql-$POSTGRES_CONNECTOR_VERSION.jar /opt/hive/lib/
+RUN ln -s /opt/postgresql-$POSTGRES_CONNECTOR_VERSION.jar /opt/hive-metastore/lib/
 
 # configure Hadoop
 ENV HADOOP_HOME=/opt/hadoop
 ENV PATH=${HADOOP_HOME}/bin:${PATH}
 
 # configure Hive
-ENV HIVE_METASTORE_VERSION=/opt/hive-metastore
-ENV PATH=${HIVE_METASTORE_VERSION}/bin:${PATH}
+ENV HIVE_METASTORE_HOME=/opt/hive-metastore
+ENV PATH=${HIVE_METASTORE_HOME}/bin:${PATH}
 
 # configure PosgreSQL connector
 ENV DATABASE_DRIVER=org.postgresql.Driver
@@ -44,7 +44,7 @@ ENV DATABASE_HOST=postgresql
 ENV DATABASE_PORT=5432
 
 # copy config file and start file from host
-COPY ./config/metastore-site.xml  $HIVE_METASTORE_VERSION/conf/metastore-site.xml
-COPY start-hive-metastore.sh $HIVE_METASTORE_VERSION
+COPY ./config/metastore-site.xml  $HIVE_METASTORE_HOME/conf/metastore-site.xml
+COPY start-hive-metastore.sh $HIVE_METASTORE_HOME
 
-CMD ["/bin/bash", "/opt/hive/start-hive-metastore.sh"]
+CMD ["/bin/bash", "/opt/hive-metastore/start-hive-metastore.sh"]

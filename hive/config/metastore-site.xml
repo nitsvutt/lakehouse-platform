@@ -55,6 +55,6 @@ likely need to add a number of new values. -->
     </property>
     <property>
         <name>metastore.warehouse.dir</name>
-        <value>hdfs://namenode:9000/user/hive/warehouse</value>
+        <value>hdfs://namenode:9000/user/hive/warehouse/default</value>
     </property>
 </configuration>
