@@ -36,7 +36,7 @@ ENV YARN_NODEMANAGER_USER=root
 #   8088 = yarn.resourcemanager.webapp.address
 #   8042 = yarn.nodemanager.webapp.address
 #   8188 = yarn.timeline-service.webapp.address
-EXPOSE 9000 9870 9866 9867 9865 8031 8088 8042 8188
+# EXPOSE 9000 9870 9866 9867 9865 8031 8088 8042 8188
 
 # copy config files and start file from host
 COPY ./config  $HADOOP_HOME/etc/hadoop/

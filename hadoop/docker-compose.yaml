@@ -12,15 +12,37 @@ services:
     networks:
       - lakehouse_platform
 
-  datanode:
+  datanode1:
     image: nitsvutt/hadoop:3.3.6
-    container_name: datanode
+    container_name: datanode1
     depends_on:
       - namenode
-    ports:
-      - 8065:8065
     volumes:
-      - $COMMON_PATH/hadoop/datanode:/hadoop/dfs/data
+      - $COMMON_PATH/hadoop/datanode1:/hadoop/dfs/data
+    environment:
+      - HADOOP_MODE=datanode
+    networks:
+      - lakehouse_platform
+  
+  datanode2:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: datanode2
+    depends_on:
+      - namenode
+    volumes:
+      - $COMMON_PATH/hadoop/datanode2:/hadoop/dfs/data
+    environment:
+      - HADOOP_MODE=datanode
+    networks:
+      - lakehouse_platform
+  
+  datanode3:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: datanode3
+    depends_on:
+      - namenode
+    volumes:
+      - $COMMON_PATH/hadoop/datanode3:/hadoop/dfs/data
     environment:
       - HADOOP_MODE=datanode
     networks:
@@ -33,7 +55,9 @@ services:
       - 8088:8088
     depends_on:
       - namenode
-      - datanode
+      - datanode1
+      - datanode2
+      - datanode3
     environment:
       - HADOOP_MODE=resourcemanager
     networks:
@@ -46,7 +70,9 @@ services:
       - 8042:8042
     depends_on:
       - namenode
-      - datanode
+      - datanode1
+      - datanode2
+      - datanode3
       - resourcemanager
     environment:
       - HADOOP_MODE=nodemanager
@@ -60,7 +86,9 @@ services:
       - 8188:8188
     depends_on:
       - namenode
-      - datanode
+      - datanode1
+      - datanode2
+      - datanode3
       - resourcemanager
     environment:
       - HADOOP_MODE=timelineserver
