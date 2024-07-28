@@ -14,7 +14,7 @@
 
 ## 1. Introduction
 
-These days, data becomes the DNA of every organization including startups to big corporations. The more an enterprise leverages the data, the more competitive advantages it gains. After defining where are data sources, all of them always require a "single source of truth" for furthure actions, such as reporting and advance analytics. This project aims to introduce an universal solution known as **Data Lakehouse Architecture**.
+These days, data becomes the DNA of every organization including startups to big corporations. The more an enterprise leverages the data, the more competitive advantages it gains. After defining where are data sources, all of them always require a "single source of truth" for furthure actions, such as reporting and advance analytics. This project aims to introduce an universal solution known as a **Data Lakehouse Platform**.
 
 <div id="architecture"/>
 
