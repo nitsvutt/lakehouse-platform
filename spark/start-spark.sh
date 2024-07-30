@@ -29,6 +29,6 @@ then
 echo "SPARK CLIENT"
 
 else
-echo "Undefined Mode $SPARK_MODE, must specify: master, history, connect, worker, client"
+echo "Undefined Mode $SPARK_MODE, must specify: master, history, worker, client"
 
 fi
