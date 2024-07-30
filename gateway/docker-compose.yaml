@@ -5,7 +5,9 @@ services:
     ports:
       - "8977:8977"
     volumes:
-      - ../workspace:/project
+      - $COMMON_PATH/spark/event:/opt/spark/event
+      - $COMMON_PATH/spark/work:/opt/spark/work
+      - $PROJECT_PATH/lakehouse_platform/workspace:/project
     environment:
       - SPARK_MODE=client
     command: jupyter notebook --no-browser --NotebookApp.token 'password' --ip 0.0.0.0 --port 8977 --allow-root
