@@ -5,6 +5,7 @@ services:
     ports:
       - "9090:8080"
       - "7077:7077"
+      - "15002:15002"
     volumes:
        - $COMMON_PATH/spark/event:/opt/spark/event
        - $COMMON_PATH/spark/work:/opt/spark/work

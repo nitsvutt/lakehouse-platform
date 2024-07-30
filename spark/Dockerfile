@@ -52,23 +52,27 @@ RUN rm -rf apache-spark.tgz
 WORKDIR /opt/spark
 ENV SPARK_HOME=/opt/spark
 ENV PATH=${SPARK_HOME}/bin:${PATH}
+ENV PYSPARK_PYTHON=/usr/bin/python
+ENV PYSPARK_DRIVER_PYTHON=/usr/bin/python
 ENV SPARK_MASTER_PORT=7077
 ENV SPARK_MASTER_WEBUI_PORT=8080
+ENV SPARK_MASTER_URL=spark://spark-master:7077
 ENV SPARK_LOG_DIR=/opt/spark/logs
 ENV SPARK_MASTER_LOG=/opt/spark/logs/spark-master.out
 ENV SPARK_WORKER_LOG=/opt/spark/logs/spark-worker.out
 ENV SPARK_HISTORY_LOG=/opt/spark/logs/spark-history.out
+ENV SPARK_CONNECT_LOG=/opt/spark/logs/spark-connect.out
 ENV SPARK_WORKER_WEBUI_PORT=8081
-ENV SPARK_WORKER_PORT=7000
-ENV SPARK_MASTER_URL=spark://spark-master:7077
 ENV SPARK_MODE=master
 RUN mkdir -p ${SPARK_LOG_DIR}
 RUN touch ${SPARK_MASTER_LOG}
 RUN touch ${SPARK_WORKER_LOG}
 RUN touch ${SPARK_HISTORY_LOG}
+RUN touch ${SPARK_CONNECT_LOG}
 RUN ln -sf /dev/stdout ${SPARK_MASTER_LOG}
 RUN ln -sf /dev/stdout ${SPARK_WORKER_LOG}
 RUN ln -sf /dev/stdout ${SPARK_HISTORY_LOG}
+RUN ln -sf /dev/stdout ${SPARK_CONNECT_LOG}
 RUN mkdir /opt/spark/event
 
 # install pyspark dependencies
