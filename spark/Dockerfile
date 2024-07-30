@@ -69,15 +69,15 @@ RUN touch ${SPARK_HISTORY_LOG}
 RUN ln -sf /dev/stdout ${SPARK_MASTER_LOG}
 RUN ln -sf /dev/stdout ${SPARK_WORKER_LOG}
 RUN ln -sf /dev/stdout ${SPARK_HISTORY_LOG}
-RUN mkdir /opt/spark-events
+RUN mkdir /opt/spark/event
+
+# install pyspark dependencies
+COPY ./requirements.txt $SPARK_HOME/requirements.txt
+RUN python -m pip install --upgrade pip
+RUN pip install -r $SPARK_HOME/requirements.txt
 
 # copy config file and start file from host
 COPY spark-defaults.conf $SPARK_HOME/conf/
 COPY ./start-spark.sh $SPARK_HOME
-COPY ./requirements.txt $SPARK_HOME/requirements.txt
-
-# install pyspark dependencies
-RUN python -m pip install --upgrade pip
-RUN pip install -r $SPARK_HOME/requirements.txt
 
 CMD ["/bin/bash", "/opt/spark/start-spark.sh"]

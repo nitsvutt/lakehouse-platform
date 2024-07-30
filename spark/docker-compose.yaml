@@ -6,8 +6,9 @@ services:
       - "9090:8080"
       - "7077:7077"
     volumes:
-       - $COMMON_PATH/spark_logs:/opt/spark-events
-       - $COMMON_PATH/spark_apps:/opt/spark/work
+       - $COMMON_PATH/spark/event:/opt/spark/event
+       - $COMMON_PATH/spark/work:/opt/spark/work
+       - ./spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     environment:
       - SPARK_MODE=master
     networks:
@@ -21,8 +22,9 @@ services:
     depends_on:
       - spark-master
     volumes:
-       - $COMMON_PATH/spark_logs:/opt/spark-events
-       - $COMMON_PATH/spark_apps:/opt/spark/work
+       - $COMMON_PATH/spark/event:/opt/spark/event
+       - $COMMON_PATH/spark/work:/opt/spark/work
+       - ./spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     environment:
       - SPARK_MODE=history
     networks:
@@ -33,19 +35,17 @@ services:
     hostname: spark-worker-1
     ports:
       - "9091:8081"
-      - "7001:7000"
     depends_on:
       - spark-master
     volumes:
-       - $COMMON_PATH/spark_logs:/opt/spark-events
-       - $COMMON_PATH/spark_apps:/opt/spark/work
+       - $COMMON_PATH/spark/event:/opt/spark/event
+       - $COMMON_PATH/spark/work:/opt/spark/work
+       - ./spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER=spark://spark-master:7077
       - SPARK_WORKER_CORES=3
       - SPARK_WORKER_MEMORY=6G
-      - SPARK_DRIVER_MEMORY=1G
-      - SPARK_EXECUTOR_MEMORY=1G
     networks:
       - lakehouse_platform
 
@@ -54,19 +54,17 @@ services:
     hostname: spark-worker-2
     ports:
       - "9092:8081"
-      - "7002:7000"
     depends_on:
       - spark-master
     volumes:
-       - $COMMON_PATH/spark_logs:/opt/spark-events
-       - $COMMON_PATH/spark_apps:/opt/spark/work
+       - $COMMON_PATH/spark/event:/opt/spark/event
+       - $COMMON_PATH/spark/work:/opt/spark/work
+       - ./spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER=spark://spark-master:7077
       - SPARK_WORKER_CORES=3
       - SPARK_WORKER_MEMORY=6G
-      - SPARK_DRIVER_MEMORY=1G
-      - SPARK_EXECUTOR_MEMORY=1G
     networks:
       - lakehouse_platform
 
