@@ -21,7 +21,7 @@ These days, data becomes the DNA of every organization including both startups a
 ## 2. Architecture
 
 <p align="center">
-  <img src="https://github.com/nitsvutt/lakehouse-platform/blob/main/asset/lakehouse-platform.png" width="75%" title="architecture" alt="architecture">
+  <img src="https://github.com/nitsvutt/lakehouse-platform/blob/main/asset/lakehouse-platform.png" width="100%" title="architecture" alt="architecture">
 </p>
 
 <div id="in-progress"/>
