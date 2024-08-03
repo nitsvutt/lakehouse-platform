@@ -29,7 +29,7 @@ These days, data becomes the DNA of every organization including both startups a
     - Event streaming service: capture data in real-time from your sources (Example: Apache Kafka).
     - Processing service:
         - Streaming processing: consume and process data from Kafka topics (Example: Apache Spark, Apache Flink).
-        - Batch processing: perform heavy ETL pipelines (Example; Apache Spark).
+        - Batch processing: perform heavy ETL pipelines (Example: Apache Spark).
     - Data lakehouse:
         - Storage: play as a central repository storing your data (Example: Apache Hadoop - HDFS).
         - Table format: play as an OLAP layer supporting ACID (Example: Apache Iceberg).
