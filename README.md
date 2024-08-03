@@ -14,13 +14,15 @@
 
 ## 1. Introduction
 
-These days, data becomes the DNA of every organization including startups to big corporations. The more an enterprise leverages the data, the more competitive advantages it gains. After defining where are data sources, all of them always require a "single source of truth" for furthure actions, such as reporting and advance analytics. This project aims to introduce an universal solution known as a **Data Lakehouse Platform**.
+These days, data becomes the DNA of every organization including both startups and big corporations. The more an enterprise leverages the data, the more competitive advantages it gains. After defining where are data sources, all of them always require a "single source of truth" for furthure actions, such as reporting and advance analytics. This project aims to introduce an universal solution known as a **Data Lakehouse Platform**.
 
 <div id="architecture"/>
 
 ## 2. Architecture
 
-
+<p align="center">
+  <img src="https://github.com/nitsvutt/lakehouse-platform/blob/main/asset/lakehouse-platform.png" width="75%" title="architecture" alt="architecture">
+</p>
 
 <div id="in-progress"/>
 
