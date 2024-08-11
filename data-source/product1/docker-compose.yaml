@@ -12,7 +12,6 @@ services:
       - POSTGRES_DB=product1
       - PGDATA=/var/lib/postgresql/data/pgdata
       - PGPORT=5433
-    restart: always
     command:
       - "postgres"
       - "-c"
