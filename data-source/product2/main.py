@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, Response
 
-from api import (
+from api.v1 import (
     account_router
 )
 from db.session import SessionLocal

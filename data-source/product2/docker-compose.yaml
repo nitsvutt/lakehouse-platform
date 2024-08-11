@@ -1,15 +1,15 @@
 services:
-  mysql:
+  product2-db:
     image: mysql:8.3.0
-    hostname: mysql
+    hostname: product2-db
     ports:
       - "3306:3306"
     volumes:
-      - $COMMON_PATH/mysql_data:/var/lib/mysql
+      - $COMMON_PATH/product2_data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_USER=$MYSQL_USER
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_USER=$PRODUCT2_USER
+      - MYSQL_ROOT_PASSWORD=$PRODUCT2_PASSWORD
+      - MYSQL_PASSWORD=$PRODUCT2_PASSWORD
       - MYSQL_DATABASE=product2
     restart: always
     networks:
@@ -19,16 +19,16 @@ services:
     image: nitsvutt/fastapi-python:3.10.4
     hostname: product2
     depends_on:
-      - mysql
+      - product2-db
     ports:
       - "8902:8902"
     volumes:
       - .:/app
     environment:
-      MYSQL_SERVER: $MYSQL_SERVER
-      MYSQL_PORT: $MYSQL_PORT
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      PRODUCT2_SERVER: $PRODUCT2_SERVER
+      PRODUCT2_PORT: $PRODUCT2_PORT
+      PRODUCT2_USER: $PRODUCT2_USER
+      PRODUCT2_PASSWORD: $PRODUCT2_PASSWORD
     command: uvicorn main:product2 --host 0.0.0.0 --port 8902 --reload
     networks:
       - lakehouse_platform

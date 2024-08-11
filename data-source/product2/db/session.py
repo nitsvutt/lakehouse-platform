@@ -2,9 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from core.config import MYSQL_SERVER, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD
+from core.config import PRODUCT2_SERVER, PRODUCT2_PORT, PRODUCT2_USER, PRODUCT2_PASSWORD
 
-url = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_SERVER}:{MYSQL_PORT}/product2'
+url = f'mysql+pymysql://{PRODUCT2_USER}:{PRODUCT2_PASSWORD}@{PRODUCT2_SERVER}:{PRODUCT2_PORT}/product2'
 
 engine = create_engine(url)
 

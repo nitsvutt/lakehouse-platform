@@ -1,10 +1,10 @@
 import os
 
 # mysql connection
-MYSQL_SERVER = os.environ['MYSQL_SERVER']
-MYSQL_PORT = os.environ['MYSQL_PORT']
-MYSQL_USER = os.environ['MYSQL_USER']
-MYSQL_PASSWORD = os.environ['MYSQL_PASSWORD']
+PRODUCT2_SERVER = os.environ['PRODUCT2_SERVER']
+PRODUCT2_PORT = os.environ['PRODUCT2_PORT']
+PRODUCT2_USER = os.environ['PRODUCT2_USER']
+PRODUCT2_PASSWORD = os.environ['PRODUCT2_PASSWORD']
 
 # datetime format
 TIMEZONE = 'Asia/Ho_Chi_Minh'
