@@ -1,10 +1,10 @@
 import os
 
 # postgresql connection
-POSTGRESQL_SERVER = os.environ['POSTGRESQL_SERVER']
-POSTGRESQL_PORT = os.environ['POSTGRESQL_PORT']
-POSTGRESQL_USER = os.environ['POSTGRESQL_USER']
-POSTGRESQL_PASSWORD = os.environ['POSTGRESQL_PASSWORD']
+PRODUCT1_SERVER = os.environ['PRODUCT1_SERVER']
+PRODUCT1_PORT = os.environ['PRODUCT1_PORT']
+PRODUCT1_USER = os.environ['PRODUCT1_USER']
+PRODUCT1_PASSWORD = os.environ['PRODUCT1_PASSWORD']
 
 # datetime format
 TIMEZONE = 'Asia/Ho_Chi_Minh'

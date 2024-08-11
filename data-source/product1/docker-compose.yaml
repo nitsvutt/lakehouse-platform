@@ -1,16 +1,17 @@
 services:
-  postgresql:
+  product1-db:
     image: postgres:15-alpine3.18
-    hostname: postgresql
+    hostname: product1-db
     ports:
-      - "5432:5432"
+      - "5433:5433"
     volumes:
-      - $COMMON_PATH/postgres_data:/var/lib/postgresql/data
+      - $COMMON_PATH/product1_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=$POSTGRESQL_USER
-      - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
+      - POSTGRES_USER=$PRODUCT1_USER
+      - POSTGRES_PASSWORD=$PRODUCT1_PASSWORD
       - POSTGRES_DB=product1
       - PGDATA=/var/lib/postgresql/data/pgdata
+      - PGPORT=5433
     restart: always
     command:
       - "postgres"
@@ -23,16 +24,16 @@ services:
     image: nitsvutt/fastapi-python:3.10.4
     hostname: product1
     depends_on:
-      - postgresql
+      - product1-db
     ports:
       - "8901:8901"
     volumes:
       - .:/app
     environment:
-      POSTGRESQL_SERVER: $POSTGRESQL_SERVER
-      POSTGRESQL_PORT: $POSTGRESQL_PORT
-      POSTGRESQL_USER: $POSTGRESQL_USER
-      POSTGRESQL_PASSWORD: $POSTGRESQL_PASSWORD
+      PRODUCT1_SERVER: $PRODUCT1_SERVER
+      PRODUCT1_PORT: $PRODUCT1_PORT
+      PRODUCT1_USER: $PRODUCT1_USER
+      PRODUCT1_PASSWORD: $PRODUCT1_PASSWORD
     command: uvicorn main:product1 --host 0.0.0.0 --port 8901 --reload
     networks:
       - lakehouse_platform

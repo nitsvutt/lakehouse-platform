@@ -42,7 +42,7 @@ RUN update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.10 1
 
 # init directories and files
 RUN mkdir -p /app
-COPY requirements.txt /app/requirements.txt
+COPY ./requirements.txt /app/requirements.txt
 
 # install packages
 WORKDIR /app

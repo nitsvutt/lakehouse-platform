@@ -2,9 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from core.config import POSTGRESQL_SERVER, POSTGRESQL_PORT, POSTGRESQL_USER, POSTGRESQL_PASSWORD
+from core.config import PRODUCT1_SERVER, PRODUCT1_PORT, PRODUCT1_USER, PRODUCT1_PASSWORD
 
-url = f'postgresql://{POSTGRESQL_USER}:{POSTGRESQL_PASSWORD}@{POSTGRESQL_SERVER}:{POSTGRESQL_PORT}/product1'
+url = f'postgresql://{PRODUCT1_USER}:{PRODUCT1_PASSWORD}@{PRODUCT1_SERVER}:{PRODUCT1_PORT}/product1'
 
 engine = create_engine(url)
 
