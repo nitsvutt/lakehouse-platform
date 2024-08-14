@@ -112,7 +112,7 @@ def update_account(account_id: int, account: schema.AccountUpdate, db: Session):
             status_code=404,
             detail="Account not found"
         )
-    if account.password is not None and hasher.verify_password(account.password, db_account.password):
+    if not account.password and hasher.verify_password(account.password, db_account.password):
         raise HTTPException(
             status_code=409,
             detail="Password has no change"
