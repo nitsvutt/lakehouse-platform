@@ -95,7 +95,7 @@ async def get_account_by_email(email: str, db: Session = Depends(get_db)):
     status_code=status.HTTP_200_OK,
     response_model_exclude_none=True
 )
-async def update_a_account(account_id: int, account:AccountUpdate,  db: Session = Depends(get_db)):
+async def update_a_account(account_id: int, account:AccountUpdate, db: Session = Depends(get_db)):
     return update_account(account_id=account_id, account=account, db=db)
 
 @account_router.post(
