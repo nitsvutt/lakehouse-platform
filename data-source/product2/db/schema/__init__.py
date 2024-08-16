@@ -8,6 +8,11 @@ from db.schema.product import (
     ProductCreate,
     ProductUpdate
 )
+from db.schema.order import (
+    Order,
+    OrderCreate,
+    OrderUpdate
+)
 
 __all__ = [
     Account,
@@ -15,5 +20,8 @@ __all__ = [
     AccountUpdate,
     Product,
     ProductCreate,
-    ProductUpdate
+    ProductUpdate,
+    Order,
+    OrderCreate,
+    OrderUpdate
 ]

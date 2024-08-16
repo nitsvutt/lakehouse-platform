@@ -37,9 +37,10 @@ create table product2.order(
 	received_address varchar(99),
 	received_datetime timestamp,
 	received_image varchar(99),
-	review_score int,
-	review_comment varchar(99),
-	review_images varchar(99),
+	reviewed_score int,
+	reviewed_comment varchar(99),
+	reviewed_image varchar(99),
+	reviewed_datetime timestamp,
 	updated_datetime timestamp,
 	primary key (order_id)
 );

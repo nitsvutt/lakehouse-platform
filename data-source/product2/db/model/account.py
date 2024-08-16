@@ -1,5 +1,4 @@
 from sqlalchemy import Column, String, Integer, Float, Date, DateTime
-from sqlalchemy.sql import expression
 from db.session import Base
 
 class Account(Base):
