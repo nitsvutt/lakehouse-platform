@@ -33,9 +33,11 @@ These days, data becomes the DNA of every organization including both startups a
     - Data lakehouse:
         - Storage: play as a central repository storing your data (Example: Apache Hadoop - HDFS).
         - Table format: play as an OLAP layer supporting ACID (Example: Apache Iceberg).
+    - Metastore: store table metadata supporting query engines quickly access this information (Example: Apache Hive).
+    - Security and Governance: ensure security and compliance requirements for the enterprise (Example: Apache Ranger and Apache Atlas).
     - Query engine: perform structure queries of users (Example: Trino).
     - User interface: serve users (Example: Hue, Apache Superset).
-    - Other serivces:
+    - Operation:
         - Containerization: develop, ship, and run applications (Example: Docker).
         - Metadata database: store metadata for other services (Example: PostgreSQL).
         - Orchestration: author, schedule and monitor workflows (Example: Apache Airflow).
