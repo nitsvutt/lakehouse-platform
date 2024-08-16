@@ -8,7 +8,6 @@ class TransBase(BaseModel):
     recorded_date: date = None
 
 class Trans(TransBase):
-    recorded_date: date = None
     updated_datetime: datetime = None
     trans_id: int = None
 
