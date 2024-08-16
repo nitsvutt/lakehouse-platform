@@ -24,17 +24,19 @@ These days, data becomes the DNA of every organization including both startups a
   <img src="https://github.com/nitsvutt/lakehouse-platform/blob/main/asset/lakehouse-platform.png" width="100%" title="architecture" alt="architecture">
 </p>
 
-- Data source: your application databases (Example: MySQL, PostgreSQL).
+- Data source: 
+    - Database: your application databases (Example: MySQL, PostgreSQL).
+    - Flat file: deverse file format from user (Example: CSV, XML).
 - Data platform:
     - Event streaming service: capture data in real-time from your sources (Example: Apache Kafka).
     - Processing service:
         - Streaming processing: consume and process data from Kafka topics (Example: Apache Spark, Apache Flink).
         - Batch processing: perform heavy ETL pipelines (Example: Apache Spark).
     - Data lakehouse:
-        - Storage: play as a central repository storing your data (Example: Apache Hadoop - HDFS).
+        - Storage: play as a central repository storing your data (Example: Apache Hadoop).
         - Table format: play as an OLAP layer supporting ACID (Example: Apache Iceberg).
     - Metastore: store table metadata supporting query engines quickly access this information (Example: Apache Hive).
-    - Security and Governance: ensure security and compliance requirements for the enterprise (Example: Apache Ranger and Apache Atlas).
+    - Security and Governance: ensure security and compliance requirements for the enterprise (Example: Apache Ranger, Apache Atlas).
     - Query engine: perform structure queries of users (Example: Trino).
     - User interface: serve users (Example: Hue, Apache Superset).
     - Operation:
