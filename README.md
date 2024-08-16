@@ -26,7 +26,7 @@ These days, data becomes the DNA of every organization including both startups a
 
 - Data source: 
     - Database: your application databases (Example: MySQL, PostgreSQL).
-    - Flat file: deverse file format from user (Example: CSV, XML).
+    - Flat file: diverse file format from user (Example: CSV, XML).
 - Data platform:
     - Event streaming service: capture data in real-time from your sources (Example: Apache Kafka).
     - Processing service:
