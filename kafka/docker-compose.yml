@@ -160,9 +160,6 @@ services:
         /bin/confluent-hub install --no-prompt debezium/debezium-connector-mysql:2.4.2
         /bin/confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.5.4
         /bin/confluent-hub install --no-prompt confluentinc/kafka-connect-hdfs3:1.2.0
-        /bin/confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.6
-        wget -P /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/ https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar
-        wget -P /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/ https://jdbc.postgresql.org/download/postgresql-42.7.3.jar
         /etc/confluent/docker/run
     networks:
       - lakehouse_platform

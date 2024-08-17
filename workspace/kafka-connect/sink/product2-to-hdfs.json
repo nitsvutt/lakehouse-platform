@@ -2,17 +2,17 @@
     "name": "product2-to-hdfs",
     "config": {
         "connector.class": "io.confluent.connect.hdfs3.Hdfs3SinkConnector",
-        "topic.prefix": "product2",
-        "hdfs.url": "hdfs://namenode:9000",
-        "key.converter": "io.confluent.connect.avro.AvroConverter",
-        "value.converter": "io.confluent.connect.avro.AvroConverter",
+        "topics.regex": "product2.*",
+        "flush.size": "3",
+        "hdfs.url": "hdfs://namenode:9000/user/hive/warehouse/staging",
+        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter.schema.registry.url":"http://schema-registry:8081",
         "value.converter.schema.registry.url":"http://schema-registry:8081",
         "confluent.topic.bootstrap.servers": "broker-1:29092,broker-2:29092,broker-3:29092",
         "confluent.topic.replication.factor": "1",
-        "hive.integration": "true",
-        "hive.metastore.uris": "thrift://hive-metastore:9083",
+        "hive.integration": "false",
         "schema.compatibility": "BACKWARD",
-        "format.class": "io.confluent.connect.hdfs3.parquet.OrcFormat",
-        "partitioner.class": "io.confluent.connect.storage.partitioner.DailyPartitioner"
+        "format.class": "io.confluent.connect.hdfs3.parquet.ParquetFormat"
     }
 }
