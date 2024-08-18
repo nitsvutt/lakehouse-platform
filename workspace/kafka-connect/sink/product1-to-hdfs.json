@@ -13,6 +13,9 @@
         "confluent.topic.replication.factor": "1",
         "hive.integration": "false",
         "schema.compatibility": "BACKWARD",
-        "format.class": "io.confluent.connect.hdfs3.parquet.ParquetFormat"
+        "format.class": "io.confluent.connect.hdfs3.parquet.ParquetFormat",
+        "transforms": "unwrap",
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+        "transforms.unwrap.drop.tombstones": "false"
     }
 }
