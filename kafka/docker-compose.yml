@@ -8,7 +8,6 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-    restart: always
     networks:
       - lakehouse_platform
 
@@ -38,7 +37,6 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
-    restart: always
     networks:
       - lakehouse_platform
   
@@ -68,7 +66,6 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
-    restart: always
     networks:
       - lakehouse_platform
   
@@ -98,7 +95,6 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 3
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
-    restart: always
     networks:
       - lakehouse_platform
 
@@ -116,7 +112,6 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://broker-1:29092,PLAINTEXT://broker-2:29092,PLAINTEXT://broker-3:29092
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
-    restart: always
     networks:
       - lakehouse_platform
 
@@ -152,7 +147,6 @@ services:
       CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
-    restart: always
     command:
       - bash
       - -c
@@ -229,7 +223,6 @@ services:
   #     KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: 3
   #     KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: 'true'
   #     KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
-  #   restart: always
   #   networks:
   #     - lakehouse_platform
 
