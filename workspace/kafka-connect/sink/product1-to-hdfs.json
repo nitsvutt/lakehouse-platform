@@ -14,8 +14,11 @@
         "hive.integration": "false",
         "schema.compatibility": "BACKWARD",
         "format.class": "io.confluent.connect.hdfs3.parquet.ParquetFormat",
+
         "transforms": "unwrap",
+
         "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+        "transforms.unwrap.add.fields": "op,lsn,source.ts_ms:src_ts_ms,payload.ts_ms:pl_ts_ms",
         "transforms.unwrap.drop.tombstones": "false"
     }
 }
