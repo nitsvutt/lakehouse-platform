@@ -185,19 +185,19 @@ services:
     networks:
       - lakehouse_platform
   
-  kafdrop:
-    image: obsidiandynamics/kafdrop:4.0.1
-    hostname: kafdrop
-    depends_on:
-      - broker-1
-      - broker-2
-      - broker-3
-    ports:
-      - "9022:9000"
-    environment:
-      KAFKA_BROKERCONNECT: "broker-1:29092"
-    networks:
-      - lakehouse_platform
+  # kafdrop:
+  #   image: obsidiandynamics/kafdrop:4.0.1
+  #   hostname: kafdrop
+  #   depends_on:
+  #     - broker-1
+  #     - broker-2
+  #     - broker-3
+  #   ports:
+  #     - "9022:9000"
+  #   environment:
+  #     KAFKA_BROKERCONNECT: "broker-1:29092"
+  #   networks:
+  #     - lakehouse_platform
 
   # ksqldb-server:
   #   image: confluentinc/cp-ksqldb-server:7.6.0
