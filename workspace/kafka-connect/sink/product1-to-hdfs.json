@@ -12,13 +12,11 @@
         "confluent.topic.bootstrap.servers": "broker-1:29092,broker-2:29092,broker-3:29092",
         "confluent.topic.replication.factor": "1",
         "hive.integration": "false",
-        "schema.compatibility": "BACKWARD",
         "format.class": "io.confluent.connect.hdfs3.parquet.ParquetFormat",
 
         "transforms": "unwrap",
 
         "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
-        "transforms.unwrap.add.fields": "op,lsn,source.ts_ms:src_ts_ms,payload.ts_ms:pl_ts_ms",
-        "transforms.unwrap.drop.tombstones": "false"
+        "transforms.unwrap.add.fields": "op,lsn,source.ts_ms:src_ts_ms"
     }
 }
