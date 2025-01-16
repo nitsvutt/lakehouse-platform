@@ -14,9 +14,11 @@
         "hive.integration": "false",
         "format.class": "io.confluent.connect.hdfs3.parquet.ParquetFormat",
 
-        "transforms": "unwrap",
-
-        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
-        "transforms.unwrap.add.fields": "op,lsn,source.ts_ms:src_ts_ms"
+        "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+        "partition.duration.ms": "86400000",
+        "path.format": "'__ds'=YYYY-MM-dd",
+        "partition.field.name": "__ds",
+        "locale": "en-US",
+        "timezone": "Asia/Saigon"
     }
 }
