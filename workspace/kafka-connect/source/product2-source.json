@@ -20,6 +20,7 @@
       "transforms": "unwrap,udtconverter,tsconverter",
       "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
       "transforms.unwrap.add.fields": "op,lsn,source.ts_ms:src_ts_ms",
+      "transforms.unwrap.delete.handling.mode": "rewrite",
       "transforms.udtconverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
       "transforms.udtconverter.format": "yyyy-MM-dd HH:mm:ss",
       "transforms.udtconverter.target.type": "Timestamp",
