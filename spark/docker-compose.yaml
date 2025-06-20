@@ -35,7 +35,7 @@ services:
     image: nitsvutt/spark:3.4.1
     hostname: spark-worker-1
     ports:
-      - "9091:8081"
+      - "9011:8081"
     depends_on:
       - spark-master
     volumes:
@@ -45,8 +45,27 @@ services:
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER=spark://spark-master:7077
-      - SPARK_WORKER_CORES=6
-      - SPARK_WORKER_MEMORY=12G
+      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=6G
+    networks:
+      - lakehouse_platform
+
+  spark-worker-2:
+    image: nitsvutt/spark:3.4.1
+    hostname: spark-worker-2
+    ports:
+      - "9012:8081"
+    depends_on:
+      - spark-master
+    volumes:
+       - $COMMON_PATH/spark/event:/opt/spark/event
+       - $COMMON_PATH/spark/work:/opt/spark/work
+       - ./spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=6G
     networks:
       - lakehouse_platform
 

@@ -1,3 +1,0 @@
-dag_id: "type_1_dag_2"
-start_date: [2024, 6, 2]
-schedule: "0 15 * * *"
