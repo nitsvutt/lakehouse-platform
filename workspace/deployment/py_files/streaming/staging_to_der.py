@@ -18,7 +18,7 @@ data_source = args.data_source
 spark = (
     SparkSession.builder
     .config("hive.metastore.uris", "thrift://hive-metastore:9083")
-    .config("spark.sql.warehouse.dir", "hdfs://namenode:9000/user/hive/warehouse/default")
+    .config("spark.sql.warehouse.dir", "hdfs://yarn-master:9000/user/hive/warehouse/default")
     .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
     .config("spark.sql.catalog.spark_catalog", "org.apache.iceberg.spark.SparkSessionCatalog")
     .enableHiveSupport()
@@ -31,7 +31,7 @@ p = Popen(f"hdfs dfs -ls {staging_path}/topics", shell=True, stdout=PIPE, stderr
 all_paths = [path.decode("utf-8").split()[-1].split("/")[-1] for path in p.stdout][1:]
 all_tables = [path for path in all_paths if pattern.match(path)]
 for table in all_tables:
-    hdfs_path = f"hdfs://namenode:9000{staging_path}/topics/{table}"
+    hdfs_path = f"hdfs://yarn-master:9000{staging_path}/topics/{table}"
     table_name = table.replace(".", "_")
     df = (
         spark.read.format('parquet')
@@ -72,7 +72,7 @@ for table in new_tables:
         ({', '.join([col + ' ' + dtype for col, dtype in df.dtypes])})
         using iceberg
         {'partitioned by (days(updated_datetime))' if table_type == 'main' else ''}
-        location 'hdfs://namenode:9000/user/hive/warehouse/rawvault'
+        location 'hdfs://yarn-master:9000/user/hive/warehouse/rawvault'
         tblproperties(
             'objcapabilities'='extread,extwrite',
             'engine.hive.enabled'='true',
@@ -97,7 +97,7 @@ for staging_table in staging_table_list:
     stream_query = (
         stream_reader.writeStream
         .outputMode("append").format("iceberg")
-        .option("checkpointLocation", f"hdfs://namenode:9000{staging_path}/checkpoints/{staging_table}")
+        .option("checkpointLocation", f"hdfs://yarn-master:9000{staging_path}/checkpoints/{staging_table}")
         .trigger(processingTime="10 seconds")
         .toTable(f"rawvault.{staging_table}_der")
     )

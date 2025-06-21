@@ -51,10 +51,10 @@ likely need to add a number of new values. -->
 
     <property>
         <name>fs.default.name</name>
-        <value>hdfs://namenode:9000</value>
+        <value>hdfs://yarn-master:9000</value>
     </property>
     <property>
         <name>metastore.warehouse.dir</name>
-        <value>hdfs://namenode:9000/user/hive/warehouse/default</value>
+        <value>hdfs://yarn-master:9000/user/hive/warehouse/default</value>
     </property>
 </configuration>

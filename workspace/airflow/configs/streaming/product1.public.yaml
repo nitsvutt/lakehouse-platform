@@ -6,7 +6,7 @@ application: "/opt/airflow/py_files/streaming/staging_to_der.py"
 jars: "hdfs://namenode:9000/user/hive/spark_jars/iceberg-hive-runtime-1.4.3.jar,hdfs://namenode:9000/user/hive/spark_jars/iceberg-spark-runtime-3.4_2.12-1.4.3.jar"
 num_executors: 1
 executor_cores: 3
-driver_memory: 2G
+driver_memory: 1G
 executor_memory: 4G
 
 staging_path: "/user/hive/warehouse/staging"
