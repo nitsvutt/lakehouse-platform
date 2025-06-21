@@ -21,7 +21,7 @@ prompt="$1"
 shift
 
 # run prompt with specified services
-available_services=("product1" "product2" "kafka" "hadoop" "hive" "spark" "airflow" "gateway")
+available_services=("product1" "product2" "kafka" "hadoop" "hive" "airflow")
 data_source_services=("product1" "product2")
 if [ $1 == "all" ]; then
     echo "INFO: docker compose ${prompt} all services"
