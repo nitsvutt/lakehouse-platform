@@ -1,25 +1,21 @@
 #!/bin/bash
 
-if [ "$HADOOP_MODE" = "namenode" ]; then
+if [ "$HADOOP_MODE" = "master" ]; then
     $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR namenode --no-prompt -format
-    $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR namenode
+    $HADOOP_HOME/bin/hdfs --daemon start namenode
+    $HADOOP_HOME/bin/yarn --daemon start resourcemanager
+    tail -f /dev/null
 
-elif [ "$HADOOP_MODE" = "datanode" ]; then
-    $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR datanode
+elif [ "$HADOOP_MODE" = "worker" ]; then
+    $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR namenode --no-prompt -format
+    $HADOOP_HOME/bin/hdfs --daemon start datanode
+    $HADOOP_HOME/bin/yarn --daemon start nodemanager
+    tail -f /dev/null
 
-elif [ "$HADOOP_MODE" = "resourcemanager" ]; then
-    $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR resourcemanager
-
-elif [ "$HADOOP_MODE" = "nodemanager" ]; then
-    $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR nodemanager
-
-elif [ "$HADOOP_MODE" = "timelineserver" ]; then
-    $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR timelineserver
-
-elif [ "$HADOOP_MODE" = "client" ]; then
-    echo "HADOOP CLIENT"
+elif [ "$HADOOP_MODE" = "history" ]; then
+    $SPARK_HOME/bin/spark-class org.apache.spark.deploy.history.HistoryServer
 
 else
-    echo "Undefined Mode $HADOOP_MODE, must specify: namenode, datanode, resourcemanager, nodemanager, timelineserver, client"
+    echo "Undefined Mode $HADOOP_MODE, must specify: master, worker, history"
 
 fi

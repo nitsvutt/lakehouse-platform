@@ -1,89 +1,78 @@
 services:
-  namenode:
+  yarn-master:
     image: nitsvutt/hadoop:3.3.6
-    container_name: namenode
+    container_name: yarn-master
     ports:
-      - 9870:9870
       - 9000:9000
+      - 9870:9870
+      - 7077:7077
+      - 8088:8088
     volumes:
       - $COMMON_PATH/hadoop/namenode:/hadoop/dfs/name
+      - $COMMON_PATH/spark/event:/opt/spark/event
     environment:
-      - HADOOP_MODE=namenode
+      - HADOOP_MODE=master
     networks:
       - lakehouse_platform
 
-  datanode1:
+  yarn-worker-1:
     image: nitsvutt/hadoop:3.3.6
-    container_name: datanode1
+    container_name: yarn-worker-1
     depends_on:
-      - namenode
+      - yarn-master
     volumes:
       - $COMMON_PATH/hadoop/datanode1:/hadoop/dfs/data
+      - $COMMON_PATH/spark/event:/opt/spark/event
     environment:
-      - HADOOP_MODE=datanode
+      - HADOOP_MODE=worker
     networks:
       - lakehouse_platform
-  
-  datanode2:
+
+  yarn-worker-2:
     image: nitsvutt/hadoop:3.3.6
-    container_name: datanode2
+    container_name: yarn-worker-2
     depends_on:
-      - namenode
+      - yarn-master
     volumes:
       - $COMMON_PATH/hadoop/datanode2:/hadoop/dfs/data
+      - $COMMON_PATH/spark/event:/opt/spark/event
     environment:
-      - HADOOP_MODE=datanode
+      - HADOOP_MODE=worker
+    networks:
+      - lakehouse_platform
+  
+  yarn-history-server:
+    image: nitsvutt/hadoop:3.3.6
+    container_name: yarn-history-server
+    ports:
+      - 18080:18080
+    depends_on:
+      - yarn-master
+    environment:
+      - HADOOP_MODE=history
+    volumes:
+      - $COMMON_PATH/spark/event:/opt/spark/event
     networks:
       - lakehouse_platform
 
-  # resourcemanager:
-  #   image: nitsvutt/hadoop:3.3.6
-  #   container_name: resourcemanager
-  #   ports:
-  #     - 8088:8088
-  #   depends_on:
-  #     - namenode
-  #     - datanode1
-  #     - datanode2
-  #     - datanode3
-  #   environment:
-  #     - HADOOP_MODE=resourcemanager
-  #   networks:
-  #     - lakehouse_platform
-
-  # nodemanager:
-  #   image: nitsvutt/hadoop:3.3.6
-  #   container_name: nodemanager
-  #   ports:
-  #     - 8042:8042
-  #   depends_on:
-  #     - namenode
-  #     - datanode1
-  #     - datanode2
-  #     - datanode3
-  #     - resourcemanager
-  #   environment:
-  #     - HADOOP_MODE=nodemanager
-  #   networks:
-  #     - lakehouse_platform
-  
-  # timelineserver:
-  #   image: nitsvutt/hadoop:3.3.6
-  #   container_name: timelineserver
-  #   ports:
-  #     - 8188:8188
-  #   depends_on:
-  #     - namenode
-  #     - datanode1
-  #     - datanode2
-  #     - datanode3
-  #     - resourcemanager
-  #   environment:
-  #     - HADOOP_MODE=timelineserver
-  #   volumes:
-  #     - $COMMON_PATH/hadoop/timelineserver:/hadoop/yarn/timeline
-  #   networks:
-  #     - lakehouse_platform
+  gateway:
+    image: nitsvutt/hadoop:3.3.6
+    hostname: gateway
+    ports:
+      - "8977:8977"
+    depends_on:
+      - yarn-master
+    volumes:
+      - $COMMON_PATH/spark/event:/opt/spark/event
+      - $PROJECT_PATH/lakehouse-platform/workspace:/opt/workspace
+    environment:
+      - PRODUCT1_SERVER=$PRODUCT1_SERVER
+      - PRODUCT1_PORT=$PRODUCT1_PORT
+      - PRODUCT1_USER=$PRODUCT1_USER
+      - PRODUCT1_PASSWORD=$PRODUCT1_PASSWORD
+    command: jupyter notebook --no-browser --NotebookApp.token 'password' --ip 0.0.0.0 --port 8977 --allow-root
+    networks:
+      - lakehouse_platform
 
 networks:
   lakehouse_platform:
