@@ -4,7 +4,7 @@
         "connector.class": "io.confluent.connect.hdfs3.Hdfs3SinkConnector",
         "topics.regex": "product1.*",
         "flush.size": "3",
-        "hdfs.url": "hdfs://namenode:9000/user/hive/warehouse/staging",
+        "hdfs.url": "hdfs://yarn-master:9000/user/hive/warehouse/staging",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "key.converter.schema.registry.url":"http://schema-registry:8081",

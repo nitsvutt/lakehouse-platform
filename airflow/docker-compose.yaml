@@ -76,6 +76,8 @@ x-airflow-common:
   volumes:
     - $PROJECT_PATH/lakehouse-platform/workspace/airflow/dags:/opt/airflow/dags
     - $COMMON_PATH/airflow/logs:/opt/airflow/logs
+    - $PROJECT_PATH/lakehouse-platform/hadoop/spark-defaults.conf:$SPARK_HOME/conf/spark-defaults.conf
+    - $PROJECT_PATH/lakehouse-platform/hadoop/config:/opt/hadoop/etc/hadoop
     - $PROJECT_PATH/lakehouse-platform/workspace/airflow/configs:/opt/airflow/configs
     - $PROJECT_PATH/lakehouse-platform/workspace/airflow/plugins:/opt/airflow/plugins
     - $PROJECT_PATH/lakehouse-platform/workspace/deployment/py_files:/opt/airflow/py_files
