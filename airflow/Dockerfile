@@ -51,5 +51,5 @@ ENV SPARK_MASTER_PORT=7077
 RUN mkdir /opt/spark/event
 RUN chmod u+x /opt/spark/sbin/* && chmod u+x /opt/spark/bin/*
 
-# update python to run mode client
-RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.8 1
+# update python to run client mode
+RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.10 1
