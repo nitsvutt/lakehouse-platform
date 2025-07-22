@@ -1,0 +1,20 @@
+services:
+  trino-coordinator:
+    image: 'trinodb/trino:476'
+    ports:
+      - '9090:8080'
+    volumes:
+      - $PROJECT_PATH/lakehouse-platform/trino/etc/coordinator:/etc/trino:ro
+    networks:
+      - lakehouse_platform
+
+  trino-worker:
+    image: 'trinodb/trino:476'
+    volumes:
+      - $PROJECT_PATH/lakehouse-platform/trino/etc/worker:/etc/trino:ro
+    networks:
+      - lakehouse_platform
+
+networks:
+  lakehouse_platform:
+    external: true
