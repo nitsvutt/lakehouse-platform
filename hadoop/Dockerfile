@@ -1,7 +1,3 @@
-# ARG JDK_VERSION=11.0.16-jre-slim-buster
-# ARG PYTHON_VERSION=3.10.4
-
-# FROM openjdk:$JDK_VERSION
 FROM python:3.10.18-slim-bullseye
 
 # install base packages
@@ -10,38 +6,9 @@ RUN apt-get install -y --no-install-recommends \
                     build-essential \
                     software-properties-common \
                     libpq-dev \
-                    # zlib1g-dev \
-                    # libncurses5-dev \
-                    # libgdbm-dev \
-                    # libnss3-dev \
-                    # libssl-dev \
-                    # libreadline-dev \
-                    # libffi-dev \
-                    # libsqlite3-dev \
                     openjdk-11-jdk \
                     wget
-                    # libbz2-dev \
-                    # procps \
-                    # ca-certificates -y
 RUN rm -rf /var/lib/apt/lists/*
-
-# # download python
-# ARG PYTHON_VERSION
-# RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz
-# RUN mkdir -p /opt/python
-# RUN tar -xf Python-${PYTHON_VERSION}.tgz -C /opt/python --strip-components=1
-# RUN rm -rf Python-${PYTHON_VERSION}.tgz
-
-# # intsall python
-# WORKDIR /opt/python
-# RUN ./configure --enable-optimizations
-# RUN make -j $(nproc)
-# RUN make altinstall
-# RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.10 1
-
-# # download and install pip
-# RUN curl https://bootstrap.pypa.io/get-pip.py | python
-# RUN update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.10 1
 
 # download Hadoop
 ENV HADOOP_VERSION=3.3.6
