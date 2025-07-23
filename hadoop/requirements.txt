@@ -13,3 +13,4 @@ pyspark==3.4.1
 grpcio==1.65.1
 faker==26.0.0
 google-api-python-client==2.138.0
+jupysql==0.11.1
