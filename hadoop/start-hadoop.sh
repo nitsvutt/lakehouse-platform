@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$HADOOP_MODE" = "master" ]; then
-    if [ ! -d "/hadoop/dfs/name" ]; then
+    if [ ! -d "/hadoop/dfs/name" ] || [ -z "$(ls -A /hadoop/dfs/name)" ]; then
         echo "Namenode hasn't been formatted yet"
         $HADOOP_HOME/bin/hdfs namenode -format -force
     else
@@ -12,7 +12,7 @@ if [ "$HADOOP_MODE" = "master" ]; then
     tail -f /dev/null
 
 elif [ "$HADOOP_MODE" = "worker" ]; then
-    if [ ! -d "/hadoop/dfs/name" ]; then
+    if [ ! -d "/hadoop/dfs/name" ] || [ -z "$(ls -A /hadoop/dfs/name)" ]; then
         echo "Namenode hasn't been formatted yet"
         $HADOOP_HOME/bin/hdfs namenode -format -force
     else
