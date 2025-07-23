@@ -1,13 +1,23 @@
 #!/bin/bash
 
 if [ "$HADOOP_MODE" = "master" ]; then
-    $HADOOP_HOME/bin/hdfs namenode -format -force
+    if [ ! -d "/hadoop/dfs/name" ]; then
+        echo "Namenode hasn't been formatted yet"
+        $HADOOP_HOME/bin/hdfs namenode -format -force
+    else
+        echo "Namenode has been already formatted"
+    fi
     $HADOOP_HOME/bin/hdfs --daemon start namenode
     $HADOOP_HOME/bin/yarn --daemon start resourcemanager
     tail -f /dev/null
 
 elif [ "$HADOOP_MODE" = "worker" ]; then
-    $HADOOP_HOME/bin/hdfs namenode -format -force
+    if [ ! -d "/hadoop/dfs/name" ]; then
+        echo "Namenode hasn't been formatted yet"
+        $HADOOP_HOME/bin/hdfs namenode -format -force
+    else
+        echo "Namenode has been already formatted"
+    fi
     $HADOOP_HOME/bin/hdfs --daemon start datanode
     $HADOOP_HOME/bin/yarn --daemon start nodemanager
     tail -f /dev/null
