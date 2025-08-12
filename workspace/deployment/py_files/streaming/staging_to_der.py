@@ -15,7 +15,7 @@ print(f"{'#'*4} - Init spark session")
 spark = (
     SparkSession.builder
     .config("hive.metastore.uris", "thrift://hive-metastore:9083")
-    .config("spark.sql.warehouse.dir", "hdfs://yarn-master:9000/user/hive/warehouse/default")
+    .config("spark.sql.warehouse.dir", "hdfs:///user/hive/warehouse/default")
     .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
     .config("spark.sql.catalog.spark_catalog", "org.apache.iceberg.spark.SparkSessionCatalog")
     .enableHiveSupport()
@@ -73,7 +73,7 @@ for table in new_tables:
         ({', '.join([col + ' ' + dtype for col, dtype in df.dtypes])})
         using iceberg
         {'partitioned by (days(updated_datetime))' if table_type == 'main' else ''}
-        location 'hdfs://yarn-master:9000/user/hive/warehouse/rawvault/{table_name}'
+        location 'hdfs:///user/hive/warehouse/rawvault/{table_name}'
         tblproperties(
             'objcapabilities'='extread,extwrite',
             'engine.hive.enabled'='true',
@@ -93,12 +93,12 @@ for staging_table in staging_table_list:
     stream_reader = (
         spark.readStream
         .schema(spark.sql(f"select * from staging.{staging_table}").schema)
-        .parquet(f"hdfs://yarn-master:9000{staging_path}/topics/{staging_table.replace('_', '.')}")
+        .parquet(f"hdfs://{staging_path}/topics/{staging_table.replace('_', '.')}")
     )
     stream_query = (
         stream_reader.writeStream
         .outputMode("append").format("iceberg")
-        .option("checkpointLocation", f"hdfs://yarn-master:9000{staging_path}/checkpoints/{staging_table}")
+        .option("checkpointLocation", f"hdfs://{staging_path}/checkpoints/{staging_table}")
         .trigger(processingTime="10 seconds")
         .toTable(f"rawvault.{staging_table}_der")
     )
