@@ -119,6 +119,7 @@ services:
     build: .
     hostname: connect
     container_name: connect
+    restart: always
     depends_on:
       - broker-1
       - broker-2
