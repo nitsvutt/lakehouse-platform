@@ -22,6 +22,9 @@ services:
     ports:
       - 9083:9083
     environment:
+      - DATABASE_HOST=postgresql
+      - DATABASE_PORT=5432
+      - DATABASE_DB=metastore_db
       - DATABASE_USER=$POSTGRESQL_USER
       - DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
     depends_on:

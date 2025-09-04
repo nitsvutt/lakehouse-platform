@@ -1,11 +1,13 @@
-ARG JDK_VERSION=11.0.16-jre-slim-buster
-
-FROM openjdk:$JDK_VERSION
+FROM python:3.10.18-slim-bullseye
 
 # install base packages
 RUN apt-get update
-RUN apt-get install build-essential \
-                    wget -y
+RUN apt-get install -y --no-install-recommends \
+                    build-essential \
+                    software-properties-common \
+                    libpq-dev \
+                    openjdk-11-jdk \
+                    wget
 RUN rm -rf /var/lib/apt/lists/*
 
 # download Hadoop
@@ -29,6 +31,7 @@ RUN ln -s /opt/postgresql-$POSTGRES_CONNECTOR_VERSION.jar /opt/hadoop/share/hado
 RUN ln -s /opt/postgresql-$POSTGRES_CONNECTOR_VERSION.jar /opt/hive-metastore/lib/
 
 # configure Hadoop
+ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-arm64"
 ENV HADOOP_HOME=/opt/hadoop
 ENV PATH=${HADOOP_HOME}/bin:${PATH}
 
