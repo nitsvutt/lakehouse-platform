@@ -9,7 +9,7 @@ fi
 
 # copy custom file to superset repo
 cp -f ./docker-compose-non-dev.yml ./superset/docker-compose-non-dev.yml
-cp -f ./.env ./superset/docker/.env
+cp -f ./.env-local ./superset/docker/.env-local
 cp -f ./requirements-local.txt ./superset/docker/requirements-local.txt
 
 # run docker compose if you don't perform any customization on Docker image
