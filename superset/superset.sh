@@ -8,6 +8,10 @@ else
     echo "sqlalchemy-trino" >> ./superset/docker/requirements-local.txt
 fi
 
+# copy custom file to superset repo
+cp -f ./docker-compose-non-dev.yml ./superset/docker-compose-non-dev.yml
+cp -f ./.env ./superset/docker/.env
+
 # run docker compose if you don't perform any customization on Docker image
 docker-compose -f ./superset/docker-compose-non-dev.yml up -d
 
