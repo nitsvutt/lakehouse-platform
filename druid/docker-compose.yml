@@ -1,0 +1,143 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# version: "2.2"
+
+services:
+  druid-db:
+    image: postgres:15-alpine3.18
+    hostname: druid-db
+    container_name: druid-db
+    ports:
+      - "5434:5434"
+    volumes:
+      - $COMMON_PATH/druid/metadata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=$POSTGRESQL_USER
+      - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
+      - POSTGRES_DB=druid_db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - PGPORT=5434
+    networks:
+      - lakehouse_platform
+
+  # Need 3.5 or later for container nodes
+  druid-zookeeper:
+    image: zookeeper:3.5.10
+    hostname: druid-zookeeper
+    container_name: druid-zookeeper
+    ports:
+      - "2182:2181"
+    environment:
+      - ZOO_MY_ID=1
+    networks:
+      - lakehouse_platform
+
+  druid-coordinator-overlord:
+    build: .
+    hostname: druid-coordinator-overlord
+    container_name: druid-coordinator-overlord
+    volumes:
+      - $COMMON_PATH/druid/coordinator_var:/opt/druid/var
+      - $PROJECT_PATH/lakehouse-platform/druid/config/cluster:/opt/druid/conf/druid/cluster
+    depends_on:
+      - druid-zookeeper
+      - druid-db
+    ports:
+      - "9081:8081"
+    command:
+      - coordinator
+    networks:
+      - lakehouse_platform
+
+  druid-router:
+    build: .
+    hostname: druid-router
+    container_name: druid-router
+    volumes:
+      - $COMMON_PATH/druid/router_var:/opt/druid/var
+      - $PROJECT_PATH/lakehouse-platform/druid/config/cluster:/opt/druid/conf/druid/cluster
+    depends_on:
+      - druid-zookeeper
+      - druid-db
+      - druid-coordinator-overlord
+    ports:
+      - "8888:8888"
+    command:
+      - router
+    networks:
+      - lakehouse_platform
+
+  druid-broker:
+    build: .
+    hostname: druid-broker
+    container_name: druid-broker
+    volumes:
+      - $COMMON_PATH/druid/broker_var:/opt/druid/var
+      - $PROJECT_PATH/lakehouse-platform/druid/config/cluster:/opt/druid/conf/druid/cluster
+    depends_on:
+      - druid-zookeeper
+      - druid-db
+      - druid-coordinator-overlord
+    ports:
+      - "8082:8082"
+    command:
+      - broker
+    networks:
+      - lakehouse_platform
+
+  druid-middlemanager:
+    build: .
+    hostname: druid-middlemanager
+    container_name: druid-middlemanager
+    volumes:
+      - $COMMON_PATH/druid/middle_var:/opt/druid/var
+      - $PROJECT_PATH/lakehouse-platform/druid/config/cluster:/opt/druid/conf/druid/cluster
+    depends_on:
+      - druid-zookeeper
+      - druid-db
+      - druid-coordinator-overlord
+    ports:
+      - "8091:8091"
+      - "8100-8105:8100-8105"
+    command:
+      - middleManager
+    networks:
+      - lakehouse_platform
+
+  druid-historical:
+    build: .
+    hostname: druid-historical
+    container_name: druid-historical
+    volumes:
+      - $COMMON_PATH/druid/historical_var:/opt/druid/var
+      - $PROJECT_PATH/lakehouse-platform/druid/config/cluster:/opt/druid/conf/druid/cluster
+    depends_on:
+      - druid-zookeeper
+      - druid-db
+      - druid-coordinator-overlord
+    ports:
+      - "9083:8083"
+    command:
+      - historical
+    networks:
+      - lakehouse_platform
+
+networks:
+  lakehouse_platform:
+    external: true
