@@ -1,7 +1,7 @@
 #!bin/sh
 
 # remove old file
-rm docker-compose.yaml
+# rm docker-compose.yaml
 
 # get file
 wget -O docker-compose.yaml https://airflow.apache.org/docs/apache-airflow/2.8.2/docker-compose.yaml
