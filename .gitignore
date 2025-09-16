@@ -163,3 +163,7 @@ cython_debug/
 
 # Hudi
 hudi-*
+
+# External repos
+druid/druid/
+superset/superset/
