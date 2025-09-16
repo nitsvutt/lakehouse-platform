@@ -28,18 +28,18 @@ services:
     networks:
       - lakehouse_platform
 
-  yarn-worker-2:
-    image: nitsvutt/hadoop:3.3.6
-    container_name: yarn-worker-2
-    depends_on:
-      - yarn-master
-    volumes:
-      - $COMMON_PATH/hadoop/datanode2:/hadoop/dfs/data
-      - $COMMON_PATH/spark/event:/opt/spark/event
-    environment:
-      - HADOOP_MODE=worker
-    networks:
-      - lakehouse_platform
+  # yarn-worker-2:
+  #   image: nitsvutt/hadoop:3.3.6
+  #   container_name: yarn-worker-2
+  #   depends_on:
+  #     - yarn-master
+  #   volumes:
+  #     - $COMMON_PATH/hadoop/datanode2:/hadoop/dfs/data
+  #     - $COMMON_PATH/spark/event:/opt/spark/event
+  #   environment:
+  #     - HADOOP_MODE=worker
+  #   networks:
+  #     - lakehouse_platform
   
   yarn-history-server:
     image: nitsvutt/hadoop:3.3.6
