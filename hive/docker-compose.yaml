@@ -6,7 +6,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - $COMMON_PATH/postgres_data:/var/lib/postgresql/data
+      - $COMMON_PATH/hive_db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=$POSTGRESQL_USER
       - POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD
