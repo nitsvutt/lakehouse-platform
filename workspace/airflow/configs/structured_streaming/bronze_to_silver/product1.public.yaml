@@ -2,7 +2,7 @@ dag_id: "product1.public"
 start_date: [2025, 6, 1]
 schedule:
 
-application: "/opt/airflow/py_files/streaming/staging_to_der.py"
+application: "/opt/airflow/spark_pys/structured_streaming/bronze_to_silver.py"
 jars: "hdfs://yarn-master:9000/user/hive/spark_jars/iceberg-hive-runtime-1.4.3.jar,hdfs://yarn-master:9000/user/hive/spark_jars/iceberg-spark-runtime-3.4_2.12-1.4.3.jar"
 num_executors: 1
 executor_cores: 3
