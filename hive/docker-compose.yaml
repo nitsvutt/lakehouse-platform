@@ -1,8 +1,8 @@
 services:
   postgresql:
-    hostname: postgresql
+    hostname: hive-db
     image: postgres:15-alpine3.18
-    container_name: postgresql
+    container_name: hive-db
     ports:
       - 5432:5432
     volumes:
@@ -22,13 +22,13 @@ services:
     ports:
       - 9083:9083
     environment:
-      - DATABASE_HOST=postgresql
+      - DATABASE_HOST=hive-db
       - DATABASE_PORT=5432
       - DATABASE_DB=metastore_db
       - DATABASE_USER=$POSTGRESQL_USER
       - DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
     depends_on:
-      - postgresql
+      - hive-db
     networks:
       - lakehouse_platform
 
