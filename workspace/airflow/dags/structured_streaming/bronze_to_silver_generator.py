@@ -8,7 +8,7 @@ from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOpe
 
 TIMEZONE = pendulum.timezone('Asia/Ho_Chi_Minh')
 
-for path in glob("/opt/airflow/configs/streaming/*.yaml"):
+for path in glob("/opt/airflow/configs/structured_streaming/bronze_to_silver/*.yaml"):
     with open(path) as file:
         try:
             CONFIG = yaml.safe_load(file)
