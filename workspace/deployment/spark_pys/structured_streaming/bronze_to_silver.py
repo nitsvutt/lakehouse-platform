@@ -3,6 +3,9 @@ import argparse
 import json
 from pyspark.sql import SparkSession
 import re
+from sqlalchemy import create_engine, text
+
+engine = create_engine('trino://trino@host.docker.internal:9090/iceberg')
 
 print(f"{'#'*4} - Extract parameters")
 parser = argparse.ArgumentParser()
@@ -90,9 +93,8 @@ for new_bronze_table in new_bronze_tables:
                 'read.parquet.vectorization.enabled'='false'
             )
         """)
-    print(f"{'#'*4} - Create view silver.{new_bronze_table}")
-    spark.sql(f"""
-        create view if not exists silver.{new_bronze_table} as
+    create_view_sql = f"""
+        create view silver.{new_bronze_table}_spark as
         with ranking as (
             select *,
                 row_number() over(
@@ -104,20 +106,25 @@ for new_bronze_table in new_bronze_tables:
         select *
         from ranking
         where rn = 1 and __op <> 'd'
-    """)
+    """
+    print(f"{'#'*4} - Create view silver.{table_name}_spark")
+    spark.sql(create_view_sql)
+    print(f"{'#'*4} - Create view silver.{table_name}")
+    with engine.connect() as connection:
+        connection.execute(text(create_view_sql.replace("_spark", "")))
 
 print(f"{'#'*2} - Run streaming")
-for staging_table in staging_table_list:
+for bronze_table in bronze_table_list:
     stream_reader = (
         spark.readStream
-        .schema(spark.sql(f"select * from staging.{staging_table}").schema)
-        .parquet(f"hdfs://{staging_path}/topics/{staging_table.replace('_', '.')}")
+        .schema(spark.sql(f"select * from bronze.{bronze_table}").schema)
+        .parquet(f"{warehouse_path}/bronze/topics/{bronze_table.replace('_', '.')}")
     )
     stream_query = (
         stream_reader.writeStream
         .outputMode("append").format("iceberg")
-        .option("checkpointLocation", f"hdfs://{staging_path}/checkpoints/{staging_table}")
+        .option("checkpointLocation", f"{warehouse_path}/bronze/spark_checkpoints/{bronze_table}")
         .trigger(processingTime="10 seconds")
-        .toTable(f"rawvault.{staging_table}_der")
+        .toTable(f"silver.{bronze_table}_der")
     )
 spark.streams.awaitAnyTermination()
