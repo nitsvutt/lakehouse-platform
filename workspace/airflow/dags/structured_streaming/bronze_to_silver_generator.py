@@ -25,7 +25,6 @@ for path in glob("/opt/airflow/configs/structured_streaming/bronze_to_silver/*.y
         default_args = default_args,
         max_active_runs = CONFIG.get("max_active_runs", 1),
         max_active_tasks = CONFIG.get("max_active_tasks", 1),
-        concurrency = CONFIG.get("concurrency", 1),
         schedule = CONFIG.get("schedule", None),
         catchup = CONFIG.get("catchup", False),
         tags = CONFIG.get("tags", ["need_tags"])
