@@ -1,13 +1,9 @@
+# airflow site
 dag_id: "product1.public"
 start_date: [2025, 6, 1]
-schedule:
+tags: ["structured_streaming", "bronze_to_silver"]
 
+# spark site
 application: "/opt/airflow/spark_pys/structured_streaming/bronze_to_silver.py"
 jars: "hdfs://yarn-master:9000/user/hive/spark_jars/iceberg-hive-runtime-1.4.3.jar,hdfs://yarn-master:9000/user/hive/spark_jars/iceberg-spark-runtime-3.4_2.12-1.4.3.jar"
-num_executors: 1
-executor_cores: 3
-driver_memory: 1G
-executor_memory: 4G
-
-staging_path: "/user/hive/warehouse/staging"
-data_source: "product1.public"
+application_args: ["--staging_path", "/user/hive/warehouse/bronze", "--data_source", "product1.public"]

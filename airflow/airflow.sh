@@ -4,7 +4,7 @@
 # rm docker-compose.yaml
 
 # get file
-wget -O docker-compose.yaml https://airflow.apache.org/docs/apache-airflow/2.8.2/docker-compose.yaml
+wget -O docker-compose-new.yaml https://airflow.apache.org/docs/apache-airflow/3.0.6/docker-compose.yaml
 
 # create necessary directories
 mkdir -p $COMMON_PATH/airflow/logs $COMMON_PATH/airflow/data

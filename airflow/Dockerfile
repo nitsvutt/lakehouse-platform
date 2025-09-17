@@ -1,4 +1,4 @@
-FROM apache/airflow:2.8.2
+FROM apache/airflow:3.0.6
 
 # install base packages
 USER root
@@ -50,6 +50,3 @@ ENV SPARK_MASTER_HOST=yarn-master
 ENV SPARK_MASTER_PORT=7077
 RUN mkdir /opt/spark/event
 RUN chmod u+x /opt/spark/sbin/* && chmod u+x /opt/spark/bin/*
-
-# update python to run client mode
-RUN update-alternatives --install /usr/bin/python python /usr/local/bin/python3.10 1
