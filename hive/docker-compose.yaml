@@ -1,5 +1,5 @@
 services:
-  postgresql:
+  hive-db:
     hostname: hive-db
     image: postgres:15-alpine3.18
     container_name: hive-db
