@@ -6,4 +6,8 @@ tags: ["structured_streaming", "bronze_to_silver"]
 # spark site
 application: "/opt/airflow/spark_pys/structured_streaming/bronze_to_silver.py"
 jars: "hdfs://yarn-master:9000/user/hive/spark_jars/iceberg-hive-runtime-1.4.3.jar,hdfs://yarn-master:9000/user/hive/spark_jars/iceberg-spark-runtime-3.4_2.12-1.4.3.jar"
-application_args: ["--staging_path", "/user/hive/warehouse/bronze", "--data_source", "product1.public"]
+application_args: [
+  "--warehouse_path", "/user/hive/warehouse",
+  "--data_source", "product1.public",
+  "--biz_key_map", '{"customer": ["customer_id"], "service": ["service_id"], "period": ["period_id"], "trans": ["trans_id"], "review": ["review_id"]}'
+]
