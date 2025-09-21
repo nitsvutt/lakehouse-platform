@@ -68,11 +68,11 @@ silver_table_list = (
         .select("tableName")
         .rdd.flatMap(lambda x: x).collect()
 )
-new_bronze_tables = list(set(bronze_table_list) - set(silver_table_list))
-print(f"{'#'*4} - new_bronze_tables={new_bronze_tables}")
-for new_bronze_table in new_bronze_tables:
-    table_list = {"derived": f"{new_bronze_table}_der", "snapshot": f"{new_bronze_table}_snp"}
-    df = spark.sql(f"select * from bronze.{new_bronze_table}")
+new_silver_tables = list(set(bronze_table_list) - set(silver_table_list))
+print(f"{'#'*4} - new_silver_tables={new_silver_tables}")
+for new_silver_table in new_silver_tables:
+    table_list = {"derived": f"{new_silver_table}_der", "snapshot": f"{new_silver_table}_snp"}
+    df = spark.sql(f"select * from bronze.{new_silver_table}")
     for table_type, table_name in table_list.items():
         print(f"{'#'*4} - Create table silver.{table_name}")
         spark.sql(f"""
@@ -94,22 +94,22 @@ for new_bronze_table in new_bronze_tables:
             )
         """)
     create_view_sql = f"""
-        create view silver.{new_bronze_table}_spark as
+        create or replace view silver.{new_silver_table}_spark as
         with ranking as (
             select *,
                 row_number() over(
-                    partition by {', '.join(biz_key_map[new_bronze_table.replace(f'{table_name_pattern}_', '')])}
+                    partition by {', '.join(biz_key_map[new_silver_table.replace(f'{table_name_pattern}_', '')])}
                     order by __src_ts_ms desc, __lsn desc
                 ) as rn
             from silver.{table_list['derived']}
         )
-        select *
+        select {', '.join([col for col in df.columns])}
         from ranking
         where rn = 1 and __op <> 'd'
     """
-    print(f"{'#'*4} - Create view silver.{table_name}_spark")
+    print(f"{'#'*4} - Create view silver.{new_silver_table}_spark")
     spark.sql(create_view_sql)
-    print(f"{'#'*4} - Create view silver.{table_name}")
+    print(f"{'#'*4} - Create view silver.{new_silver_table}")
     with engine.connect() as connection:
         connection.execute(text(create_view_sql.replace("_spark", "")))
 
