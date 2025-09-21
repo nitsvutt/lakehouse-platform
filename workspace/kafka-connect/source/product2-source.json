@@ -5,7 +5,6 @@
       "value.converter.schema.registry.url": "http://schema-registry:8081",
       "schema.history.internal.kafka.bootstrap.servers": "broker-1:29092,broker-2:29092,broker-3:29092",
       "schema.history.internal.kafka.topic": "schema-history.product2",
-      "connector.class": "io.debezium.connector.mysql.MySqlConnector",
       "key.converter": "org.apache.kafka.connect.json.JsonConverter",
       "value.converter": "org.apache.kafka.connect.json.JsonConverter",
       "topic.prefix": "product2",
