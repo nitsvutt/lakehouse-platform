@@ -16,4 +16,4 @@ cp -f ./requirements-local.txt ./superset/docker/requirements-local.txt
 docker-compose -f ./superset/docker-compose-non-dev.yml up -d
 
 # Trino connection
-# trino://trino@trino-coordinator:8080
+# trino://trino@trino-coordinator:8080/iceberg
