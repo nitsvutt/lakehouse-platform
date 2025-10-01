@@ -25,21 +25,21 @@ These days, data becomes the DNA of every organization including both startups a
 </p>
 
 - Data source: 
-    - Database: your application databases (Example: MySQL, PostgreSQL).
-    - Flat file: diverse file formats from users (Example: CSV, XML).
+    - Flat files: diverse file formats from users (Example: CSV, XML).
+    - Database: application databases (Example: MySQL, PostgreSQL).
+    - Others: external APIs, sensors, streaming services.
 - Data platform:
-    - Event streaming: capture data in real-time from your sources (Example: Apache Kafka).
-    - Mini-batch/Batch processing: process data from data source or staging (Example: Apache Spark).
+    - Event streaming: store or buffer event between systems (Example: Apache Kafka).
+    - Batch processing: process large datasets or run scheduled jobs (Example: Apache Spark, Apache Trino, Apache Airflow).
+    - Stream processing: support low-latency and realtime applications (Example: Apache Flink).
     - Data lakehouse:
-        - Storage: play as a central repository storing your data (Example: Apache Hadoop).
-        - Table format: play as an OLAP layer supporting ACID (Example: Apache Iceberg).
-    - Metastore: store table metadata supporting query engines quickly access this information (Example: Apache Hive).
-    - Query engine: perform structure queries of users (Example: Apache Spark, Trino).
-    - User interface: serve users (Example: Jupyter, DBeaver, Apache Superset).
-    - Operation:
-        - Containerization: develop, ship, and run applications (Example: Docker).
-        - Metadata database: store metadata for other services (Example: PostgreSQL).
-        - Orchestration: author, schedule and monitor workflows (Example: Apache Airflow).
+        - Storage:
+            - Distributed File System or Object Storage: play as a central repository storing your data (Example: Apache Hadoop).
+            - High-performance Database (Depend on use case): play as a staging storage for realtime applications (Example: ScyllaDB).
+        - Table format: support ACID for tables (Example: Apache Iceberg).
+        - Metastore: store table metadata supporting query engines quickly access this information (Example: Apache Hive).
+    - Data Marts +/ Warehouse (Depend on use case): play as an OLAP layer for BI & Reporting (Example: StarRocks, Apache Druid).
+    - User interface: serve users (Example: Jupyter, DBeaver, Apache Superset, Imply).
 
 <div id="in-progress"/>
 
