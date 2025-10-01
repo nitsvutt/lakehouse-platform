@@ -31,11 +31,11 @@ These days, data becomes the DNA of every organization including both startups a
 - Data platform:
     - Event streaming: store or buffer event between systems (Example: Apache Kafka).
     - Batch processing: process large datasets or run scheduled jobs (Example: Apache Spark, Apache Trino, Apache Airflow).
-    - Stream processing: support low-latency and realtime applications (Example: Apache Flink).
+    - Stream processing: support low-latency and real-time applications (Example: Apache Flink).
     - Data lakehouse:
         - Storage:
             - Distributed File System or Object Storage: play as a central repository storing your data (Example: Apache Hadoop).
-            - High-performance Database (Depend on use case): play as a staging storage for realtime applications (Example: ScyllaDB).
+            - High-performance Database (Depend on use case): play as a staging storage for real-time applications (Example: ScyllaDB).
         - Table format: support ACID for tables (Example: Apache Iceberg).
         - Metastore: store table metadata supporting query engines quickly access this information (Example: Apache Hive).
     - Data Marts +/ Warehouse (Depend on use case): play as an OLAP layer for BI & Reporting (Example: StarRocks, Apache Druid).
