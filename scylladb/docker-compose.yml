@@ -3,7 +3,7 @@ services:
     image: scylladb/scylla:2025.2.3
     container_name: scylla-node1
     hostname: scylla-node1
-    command: --smp 1 --memory 1G
+    command: --smp 1 --memory 1G --cpuset 1,2
     volumes:
       - $COMMON_PATH/scylladb/data1:/var/lib/scylla
       - $PROJECT_PATH/lakehouse-platform/scylladb/config:/etc/scylla
@@ -16,7 +16,7 @@ services:
     image: scylladb/scylla:2025.2.3
     container_name: scylla-node2
     hostname: scylla-node2
-    command: --seeds=scylla-node1 --smp 1 --memory 1G
+    command: --seeds=scylla-node1 --smp 1 --memory 1G --cpuset 3,4
     volumes:
       - $COMMON_PATH/scylladb/data2:/var/lib/scylla
       - $PROJECT_PATH/lakehouse-platform/scylladb/config:/etc/scylla
@@ -31,7 +31,7 @@ services:
     image: scylladb/scylla:2025.2.3
     container_name: scylla-node3
     hostname: scylla-node3
-    command: --seeds=scylla-node1,scylla-node2 --smp 1 --memory 1G
+    command: --seeds=scylla-node1,scylla-node2 --smp 1 --memory 1G --cpuset 5,6
     volumes:
       - $COMMON_PATH/scylladb/data3:/var/lib/scylla
       - $PROJECT_PATH/lakehouse-platform/scylladb/config:/etc/scylla
