@@ -12,37 +12,6 @@ services:
     networks:
       - lakehouse_platform
 
-  scylla-node2:
-    image: scylladb/scylla:2025.2.3
-    container_name: scylla-node2
-    hostname: scylla-node2
-    command: --seeds=scylla-node1 --smp 1 --memory 1G --cpuset 3,4
-    volumes:
-      - $COMMON_PATH/scylladb/data2:/var/lib/scylla
-      - $PROJECT_PATH/lakehouse-platform/scylladb/config:/etc/scylla
-    ports:
-      - 9043:9042
-    depends_on:
-      - scylla-node1
-    networks:
-      - lakehouse_platform
-
-  scylla-node3:
-    image: scylladb/scylla:2025.2.3
-    container_name: scylla-node3
-    hostname: scylla-node3
-    command: --seeds=scylla-node1,scylla-node2 --smp 1 --memory 1G --cpuset 5,6
-    volumes:
-      - $COMMON_PATH/scylladb/data3:/var/lib/scylla
-      - $PROJECT_PATH/lakehouse-platform/scylladb/config:/etc/scylla
-    ports:
-      - 9044:9042
-    depends_on:
-      - scylla-node1
-      - scylla-node2
-    networks:
-      - lakehouse_platform
-
 networks:
   lakehouse_platform:
     external: true
