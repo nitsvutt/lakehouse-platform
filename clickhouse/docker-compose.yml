@@ -1,0 +1,38 @@
+services:
+  clickhouse-keeper1:
+    image: 'clickhouse/clickhouse-keeper:25.3-alpine'
+    user: '101:101'
+    container_name: clickhouse-keeper1
+    hostname: clickhouse-keeper1
+    volumes:
+      - $PROJECT_PATH/lakehouse-platform/clickhouse/config/keeper/keeper_config.xml:/etc/clickhouse-keeper/keeper_config.xml
+    ports:
+      - '9181:9181'
+    networks:
+      - lakehouse_platform
+
+  clickhouse1:
+    image: 'clickhouse/clickhouse-server:25.3'
+    user: '101:101'
+    container_name: clickhouse1
+    hostname: clickhouse1
+    volumes:
+      - $COMMON_PATH/clickhouse/data1:/var/lib/clickhouse/
+      - $COMMON_PATH/clickhouse/log1:/var/log/clickhouse-server/
+      - $PROJECT_PATH/lakehouse-platform/clickhouse/config/server/config.d/config.xml:/etc/clickhouse-server/config.d/config.xml
+      - $PROJECT_PATH/lakehouse-platform/clickhouse/config/server/users.d/users.xml:/etc/clickhouse-server/users.d/users.xml
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+    depends_on:
+      - clickhouse-keeper1
+    environment:
+      - CLICKHOUSE_DB=my_database
+      - CLICKHOUSE_USER=clickhouse
+      - CLICKHOUSE_PASSWORD=$CLICKHOUSE_PASSWORD
+    networks:
+      - lakehouse_platform
+
+networks:
+  lakehouse_platform:
+    external: true
