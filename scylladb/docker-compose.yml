@@ -3,7 +3,7 @@ services:
     image: scylladb/scylla:2025.2.3
     container_name: scylla-node1
     hostname: scylla-node1
-    command: --smp 1 --memory 1G --cpuset 1,2
+    command: --smp 2 --memory 2G --cpuset 1,2
     volumes:
       - $COMMON_PATH/scylladb/data1:/var/lib/scylla
       - $PROJECT_PATH/lakehouse-platform/scylladb/config:/etc/scylla
