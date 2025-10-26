@@ -1,4 +1,4 @@
 http: :5080
 database:
   hosts:
-    - scylla-node1
+    - scylla-manager-db
