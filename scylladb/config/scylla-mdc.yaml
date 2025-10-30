@@ -30,3 +30,5 @@ consistent_cluster_management: false
 strict_is_not_null_in_views: true
 api_ui_dir: /opt/scylladb/swagger-ui/dist/
 api_doc_dir: /opt/scylladb/api/api-doc/
+authenticator: PasswordAuthenticator
+authorizer: CassandraAuthorizer
