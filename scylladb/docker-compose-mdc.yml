@@ -1,0 +1,82 @@
+services:
+  scylla-node1:
+    image: scylladb/scylla:5.4.2
+    container_name: scylla-node1
+    command: |
+      --seeds scylla-node1,scylla-node2
+      --broadcast-rpc-address scylla-node1 \
+      --broadcast-address scylla-node1 \
+      --smp 2 --memory 2G --cpuset 1,2
+    volumes:
+      - $COMMON_PATH/scylladb/data1:/var/lib/scylla
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/scylla-mdc.yaml:/etc/scylla/scylla.yaml
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/cassandra-rackdc.properties:/etc/scylla/cassandra-rackdc.properties
+    ports:
+      - 17000:7000
+      - 17001:7001
+    networks:
+      - lakehouse_platform
+  
+  scylla-node2:
+    image: scylladb/scylla:5.4.2
+    container_name: scylla-node2
+    command: |
+      --seeds scylla-node1,scylla-node2
+      --broadcast-rpc-address scylla-node2 \
+      --broadcast-address scylla-node2 \
+      --smp 2 --memory 2G --cpuset 3,4
+    volumes:
+      - $COMMON_PATH/scylladb/data2:/var/lib/scylla
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/scylla-mdc.yaml:/etc/scylla/scylla.yaml
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/cassandra-rackdc.properties:/etc/scylla/cassandra-rackdc.properties
+    ports:
+      - 27000:7000
+      - 27001:7001
+    networks:
+      - lakehouse_platform
+  
+  scylla-node3:
+    image: scylladb/scylla:5.4.2
+    container_name: scylla-node3
+    command: |
+      --seeds scylla-node1,scylla-node2
+      --broadcast-rpc-address scylla-node3 \
+      --broadcast-address scylla-node3 \
+      --smp 2 --memory 2G --cpuset 5,6
+    volumes:
+      - $COMMON_PATH/scylladb/data3:/var/lib/scylla
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/scylla-mdc.yaml:/etc/scylla/scylla.yaml
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/cassandra-rackdc-mdc.properties:/etc/scylla/cassandra-rackdc.properties
+    ports:
+      - 37000:7000
+      - 37001:7001
+    depends_on:
+      - scylla-node1
+      - scylla-node2
+    networks:
+      - lakehouse_platform
+  
+  scylla-node4:
+    image: scylladb/scylla:5.4.2
+    container_name: scylla-node4
+    command: |
+      --seeds scylla-node1,scylla-node2
+      --broadcast-rpc-address scylla-node4 \
+      --broadcast-address scylla-node4 \
+      --smp 2 --memory 2G --cpuset 7,8
+    volumes:
+      - $COMMON_PATH/scylladb/data4:/var/lib/scylla
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/scylla-mdc.yaml:/etc/scylla/scylla.yaml
+      - $PROJECT_PATH/lakehouse-platform/scylladb/config/cassandra-rackdc-mdc.properties:/etc/scylla/cassandra-rackdc.properties
+    ports:
+      - 47000:7000
+      - 47001:7001
+    depends_on:
+      - scylla-node1
+      - scylla-node2
+    networks:
+      - lakehouse_platform
+
+networks:
+  lakehouse_platform:
+    external: true
