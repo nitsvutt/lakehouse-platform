@@ -1,0 +1,6 @@
+auth_token: $SCYLLADB_AUTH_TOKEN
+s3:
+  access_key_id: $MINIO_ROOT_USER
+  secret_access_key: $MINIO_ROOT_PASSWORD
+  provider: Minio
+  endpoint: http://minio:9000
