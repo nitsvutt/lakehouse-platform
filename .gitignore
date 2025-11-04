@@ -167,3 +167,6 @@ hudi-*
 # External repos
 druid/druid/
 superset/superset/
+
+# Secret files
+*.secret
