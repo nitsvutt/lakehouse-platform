@@ -1,9 +1,5 @@
 # Lakehouse Platform
 
-![license](https://img.shields.io/github/license/nitsvutt/lakehouse-platform)
-![stars](https://img.shields.io/github/stars/nitsvutt/lakehouse-platform)
-![forks](https://img.shields.io/github/forks/nitsvutt/lakehouse-platform)
-
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Architecture](#architecture)
