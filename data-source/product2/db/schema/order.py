@@ -5,6 +5,7 @@ class OrderBase(BaseModel):
     account_id: int = None
     product_id: int = None
     quantity: int = None
+    status: str = None
     recorded_date: date = None
     received_address: str = None
     received_image: str = None

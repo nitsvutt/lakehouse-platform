@@ -30,6 +30,7 @@ def create_order(order: schema.OrderCreate, db: Session):
         account_id = order.account_id,
         product_id = order.product_id,
         quantity = order.quantity,
+        status = order.status,
         recorded_date = order.recorded_date,
         received_address = order.received_address,
         received_image = order.received_image,

@@ -8,6 +8,7 @@ class Order(Base):
     account_id = Column(Integer)
     product_id = Column(Integer)
     quantity = Column(Integer)
+    status = Column(String)
     recorded_date = Column(Date)
     received_address = Column(String)
     received_image = Column(String)

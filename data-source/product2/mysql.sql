@@ -33,6 +33,7 @@ create table product2.order(
 	account_id bigint,
 	product_id bigint,
 	quantity int,
+	status varchar(99),
 	recorded_date date,
 	received_address varchar(99),
 	received_datetime timestamp,
