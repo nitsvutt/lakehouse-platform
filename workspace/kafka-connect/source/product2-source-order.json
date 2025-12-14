@@ -1,5 +1,5 @@
 {
-    "name": "product2-source",
+    "name": "product2-source-order",
     "config": {
       "key.converter.schema.registry.url": "http://schema-registry:8081",
       "value.converter.schema.registry.url": "http://schema-registry:8081",
@@ -15,21 +15,16 @@
       "database.password": "****",
       "database.server.id": "184054",
       "database.include.list": "product2",
+      "table.include.list": "product2.order",
       "time.precision.mode":"connect",
 
-      "transforms": "unwrap,udtconverter,tsconverter",
+      "transforms": "unwrap,udtconverter",
       "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
-      "transforms.unwrap.add.fields": "op,lsn,source.ts_ms:src_ts_ms",
       "transforms.unwrap.delete.handling.mode": "rewrite",
       "transforms.udtconverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
       "transforms.udtconverter.format": "yyyy-MM-dd HH:mm:ss",
       "transforms.udtconverter.target.type": "Timestamp",
       "transforms.udtconverter.unix.precision": "microseconds",
-      "transforms.udtconverter.field": "updated_datetime",
-      "transforms.tsconverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
-      "transforms.tsconverter.format": "yyyy-MM-dd HH:mm:ss",
-      "transforms.tsconverter.target.type": "Timestamp",
-      "transforms.tsconverter.unix.precision": "milliseconds",
-      "transforms.tsconverter.field": "__src_ts_ms"
+      "transforms.udtconverter.field": "updated_datetime,received_datetime,reviewed_datetime"
     }
   }
