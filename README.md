@@ -35,7 +35,10 @@ These days, data becomes the DNA of every organization including both startups a
         - Table format: support ACID for tables (Example: Apache Iceberg).
         - Metastore: store table metadata supporting query engines quickly access this information (Example: Apache Hive).
     - Data Marts +/ Warehouse (Depend on use case): play as an OLAP layer for BI & Reporting (Example: StarRocks, Apache Druid).
-    - User interface: serve users (Example: Jupyter, DBeaver, Apache Superset, Imply).
+    - User Interface: serve users (Example: Jupyter, DBeaver, Apache Superset, Imply).
+    - Data Management: serve data discovery, observability, quality, lineage, and colaboration (Example: OpenMetadata).
+    - Data Security: serve data security (Example: Apache Ranger).
+
 
 <div id="in-progress"/>
 
