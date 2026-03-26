@@ -18,13 +18,9 @@
       "table.include.list": "product2.order",
       "time.precision.mode":"connect",
 
-      "transforms": "unwrap,udtconverter",
+      "transforms": "unwrap",
       "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
-      "transforms.unwrap.delete.handling.mode": "rewrite",
-      "transforms.udtconverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
-      "transforms.udtconverter.format": "yyyy-MM-dd HH:mm:ss",
-      "transforms.udtconverter.target.type": "Timestamp",
-      "transforms.udtconverter.unix.precision": "microseconds",
-      "transforms.udtconverter.field": "updated_datetime,received_datetime,reviewed_datetime"
+      "transforms.unwrap.add.fields": "op",
+      "transforms.unwrap.delete.handling.mode": "rewrite"
     }
   }

@@ -1,6 +1,6 @@
 services:
   broker-1:
-    image: confluentinc/cp-kafka:7.6.0
+    image: confluentinc/cp-kafka:7.8.7
     hostname: broker-1
     container_name: broker-1
     ports:
@@ -8,22 +8,23 @@ services:
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-1:19092,INTERNAL://broker-1:9102
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker-1:19092,INTERNAL://broker-1:9092
       KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@broker-1:29092
       KAFKA_LISTENERS: CONTROLLER://broker-1:29092,PLAINTEXT://broker-1:19092,INTERNAL://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CONFLUENT_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-      CLUSTER_ID: SN74WY9jQQmmy6MoPIOXhw # docker run -it --rm confluentinc/cp-kafka:7.6.0 kafka-storage random-uuid
+      CLUSTER_ID: SN74WY9jQQmmy6MoPIOXhw # docker run -it --rm confluentinc/cp-kafka:7.8.7 kafka-storage random-uuid
     volumes:
       - $COMMON_PATH/kafka/data1:/var/lib/kafka/data
     networks:
       - lakehouse_platform
   
   schema-registry:
-    image: confluentinc/cp-schema-registry:7.6.0
+    image: confluentinc/cp-schema-registry:7.8.7
     hostname: schema-registry
     container_name: schema-registry
     ports:
@@ -65,7 +66,7 @@ services:
       - lakehouse_platform
   
   # control-center:
-  #   image: confluentinc/cp-enterprise-control-center:7.6.0
+  #   image: confluentinc/cp-enterprise-control-center:7.8.7
   #   hostname: control-center
   #   container_name: control-center
   #   depends_on:

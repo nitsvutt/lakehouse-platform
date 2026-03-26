@@ -170,3 +170,6 @@ superset/superset/
 
 # Secret files
 *.secret
+
+# Runtime files
+*iceberg-kafka-connect-runtime-hive
