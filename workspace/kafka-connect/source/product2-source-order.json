@@ -18,9 +18,13 @@
       "table.include.list": "product2.order",
       "time.precision.mode":"connect",
 
-      "transforms": "unwrap",
+      "transforms": "unwrap,date2string",
       "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
       "transforms.unwrap.add.fields": "op",
-      "transforms.unwrap.delete.handling.mode": "rewrite"
+      "transforms.unwrap.delete.handling.mode": "rewrite",
+      "transforms.date2string.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
+      "transforms.date2string.field": "recorded_date",
+      "transforms.date2string.target.type": "string",
+      "transforms.date2string.format": "yyyy-MM-dd"
     }
   }

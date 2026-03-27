@@ -173,3 +173,4 @@ superset/superset/
 
 # Runtime files
 *iceberg-kafka-connect-runtime-hive
+*.jar
