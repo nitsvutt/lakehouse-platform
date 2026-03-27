@@ -50,4 +50,8 @@ ENV DATABASE_PORT=5432
 COPY ./config/metastore-site.xml  $HIVE_METASTORE_HOME/conf/metastore-site.xml
 COPY start-hive-metastore.sh $HIVE_METASTORE_HOME
 
+# copy s3 jar files to hive
+RUN cp ${HADOOP_HOME}/share/hadoop/tools/lib/hadoop-aws-*.jar ${HIVE_METASTORE_HOME}/lib/
+RUN cp ${HADOOP_HOME}/share/hadoop/tools/lib/aws-java-sdk-bundle-*.jar ${HIVE_METASTORE_HOME}/lib/
+
 CMD ["/bin/bash", "/opt/hive-metastore/start-hive-metastore.sh"]

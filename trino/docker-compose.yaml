@@ -5,6 +5,9 @@ services:
       - '9090:8080'
     volumes:
       - $PROJECT_PATH/lakehouse-platform/trino/etc/coordinator:/etc/trino
+    environment:
+      MINIO_ROOT_USER: $MINIO_ROOT_USER
+      MINIO_ROOT_PASSWORD: $MINIO_ROOT_PASSWORD
     networks:
       - lakehouse_platform
 
@@ -12,6 +15,9 @@ services:
     image: 'trinodb/trino:476'
     volumes:
       - $PROJECT_PATH/lakehouse-platform/trino/etc/worker:/etc/trino
+    environment:
+      MINIO_ROOT_USER: $MINIO_ROOT_USER
+      MINIO_ROOT_PASSWORD: $MINIO_ROOT_PASSWORD
     networks:
       - lakehouse_platform
 

@@ -17,7 +17,8 @@ services:
 
   hive-metastore:
     hostname: hive-metastore
-    image: nitsvutt/hive-metastore:3.0.0
+    # image: nitsvutt/hive-metastore:3.0.0
+    image: nitsvutt/hive-metastore:3.0.0-s3
     container_name: hive-metastore
     ports:
       - 9083:9083
@@ -27,6 +28,8 @@ services:
       - DATABASE_DB=metastore_db
       - DATABASE_USER=$POSTGRESQL_USER
       - DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
+      - MINIO_ROOT_USER=$MINIO_ROOT_USER
+      - MINIO_ROOT_PASSWORD=$MINIO_ROOT_PASSWORD
     depends_on:
       - hive-db
     networks:

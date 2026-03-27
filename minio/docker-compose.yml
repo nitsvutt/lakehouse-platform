@@ -3,7 +3,7 @@ services:
     image: minio/minio:latest
     container_name: minio
     ports:
-      - "9000:9000"
+      - "9009:9000"
       - "9001:9001"
     volumes:
       - $COMMON_PATH/minio/data:/data
