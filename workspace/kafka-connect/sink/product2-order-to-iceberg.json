@@ -1,0 +1,40 @@
+{
+  "name": "product2-order-to-iceberg",
+  "config": {
+    "connector.class": "io.tabular.iceberg.connect.IcebergSinkConnector",
+    "tasks.max": "1",
+    "topics": "product2.product2.order",
+    
+    "iceberg.tables": "staging.cdc_product2_order",
+    "iceberg.tables.upsert-mode-enabled": "false",
+    "iceberg.tables.auto-create-enabled": "true",
+    "iceberg.tables.evolve-schema-enabled": "false",
+    "iceberg.tables.default-commit-branch": "main",
+    "iceberg.tables.default-partition-by": "recorded_date",
+
+    "iceberg.control.topic": "control-iceberg",
+    "iceberg.control.commit.interval-ms": "60000",
+    "iceberg.control.commit.timeout-ms": "30000",
+    "iceberg.control.commit.retries": "3",
+
+    "iceberg.catalog": "iceberg",
+    "iceberg.catalog.type": "hive",
+    "iceberg.catalog.uri": "thrift://hive-metastore:9083",
+    "iceberg.catalog.warehouse": "s3a://lakehouse/iceberg/staging",
+    "iceberg.catalog.io-impl": "org.apache.iceberg.aws.s3.S3FileIO",
+    "iceberg.catalog.client.region": "us-east-1",
+    "iceberg.catalog.s3.access-key-id": "****",
+    "iceberg.catalog.s3.secret-access-key": "****",
+    "iceberg.catalog.s3.endpoint": "http://minio:9000",
+    "iceberg.catalog.s3.path-style-access": "true",
+
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+
+    "transforms":"insertMetadata",
+    "transforms.insertMetadata.type":"org.apache.kafka.connect.transforms.InsertField$Value",
+    "transforms.insertMetadata.offset.field":"__offset",
+    "transforms.insertMetadata.partition.field":"__partition",
+    "transforms.insertMetadata.timestamp.field":"__timestamp"
+  }
+}
