@@ -13,3 +13,15 @@ scrape_configs:
   - job_name: cadvisor
     static_configs:
       - targets: ["cadvisor:8080"]
+
+  # lunar-airlock (Airflow on kind-my-cluster) — exposed via standalone
+  # NodePort Services (lunar-airlock/scripts/monitoring/
+  # lunar-airlock-nodeport-services.yaml), reachable because kind's own
+  # node containers sit on this same lakehouse_platform network.
+  - job_name: lunar-airlock-statsd
+    static_configs:
+      - targets: ["my-cluster-worker:30902"]
+
+  - job_name: lunar-airlock-pgbouncer
+    static_configs:
+      - targets: ["my-cluster-worker:30927"]

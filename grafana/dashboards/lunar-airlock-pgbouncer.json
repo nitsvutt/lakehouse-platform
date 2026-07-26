@@ -1,0 +1,105 @@
+{
+  "title": "lunar-airlock — PgBouncer",
+  "uid": "lunar-airlock-pgbouncer",
+  "tags": ["pgbouncer", "lunar-airlock"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": { "from": "now-6h", "to": "now" },
+  "panels": [
+    {
+      "title": "Active clients per pool",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "pgbouncer_exporter_pools_active_clients{job=\"lunar-airlock-pgbouncer\"}",
+          "legendFormat": "{{database}} ({{user}})",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Server connections (active vs idle)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "pgbouncer_exporter_pools_active_server{job=\"lunar-airlock-pgbouncer\"}",
+          "legendFormat": "active — {{database}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        },
+        {
+          "expr": "pgbouncer_exporter_pools_idle_server{job=\"lunar-airlock-pgbouncer\"}",
+          "legendFormat": "idle — {{database}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Current vs max pool size",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "pgbouncer_exporter_database_current_connections{job=\"lunar-airlock-pgbouncer\"}",
+          "legendFormat": "current — {{name}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        },
+        {
+          "expr": "pgbouncer_exporter_database_pool_size{job=\"lunar-airlock-pgbouncer\"}",
+          "legendFormat": "pool size — {{name}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Queries / transactions per second",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(pgbouncer_exporter_stats_total_query_count{job=\"lunar-airlock-pgbouncer\"}[5m])",
+          "legendFormat": "queries/s — {{database}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        },
+        {
+          "expr": "rate(pgbouncer_exporter_stats_total_xact_count{job=\"lunar-airlock-pgbouncer\"}[5m])",
+          "legendFormat": "xacts/s — {{database}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Waiting clients",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "pgbouncer_exporter_pools_waiting_clients{job=\"lunar-airlock-pgbouncer\"}",
+          "legendFormat": "{{database}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Max client wait time (s) — pool overload signal",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "pgbouncer_exporter_pools_max_wait{job=\"lunar-airlock-pgbouncer\"}",
+          "legendFormat": "{{database}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "title": "lunar-airlock — Airflow",
+  "uid": "lunar-airlock-airflow",
+  "tags": ["airflow", "lunar-airlock"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": { "from": "now-6h", "to": "now" },
+  "panels": [
+    {
+      "title": "Scheduler heartbeat rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(airflow_scheduler_heartbeat{job=\"lunar-airlock-statsd\"}[5m])",
+          "legendFormat": "scheduler heartbeat/s",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Executor slots",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "airflow_executor_open_slots{job=\"lunar-airlock-statsd\"}",
+          "legendFormat": "open",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        },
+        {
+          "expr": "airflow_executor_queued_tasks{job=\"lunar-airlock-statsd\"}",
+          "legendFormat": "queued",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        },
+        {
+          "expr": "airflow_executor_running_tasks{job=\"lunar-airlock-statsd\"}",
+          "legendFormat": "running",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "DAG processing: total parse time (s)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "airflow_dag_processing_total_parse_time{job=\"lunar-airlock-statsd\"}",
+          "legendFormat": "total parse time",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "DAG processing: import errors",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "airflow_dag_processing_import_errors{job=\"lunar-airlock-statsd\"}",
+          "legendFormat": "import errors",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "KubernetesExecutor pod creation/deletion (rate)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(airflow_kubernetes_executor_pod_creation_status{job=\"lunar-airlock-statsd\"}[5m])",
+          "legendFormat": "pod creations/s",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        },
+        {
+          "expr": "rate(airflow_kubernetes_executor_pod_deletion_status{job=\"lunar-airlock-statsd\"}[5m])",
+          "legendFormat": "pod deletions/s",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Task instance finishes (rate)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "rate(airflow_ti_finish{job=\"lunar-airlock-statsd\"}[5m])",
+          "legendFormat": "{{state}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "Triggerer capacity left",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "airflow_triggerer_capacity_left{job=\"lunar-airlock-statsd\"}",
+          "legendFormat": "capacity left",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    },
+    {
+      "title": "DAG bag size",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 24 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "airflow_dagbag_size{job=\"lunar-airlock-statsd\"}",
+          "legendFormat": "dagbag size",
+          "datasource": { "type": "prometheus", "uid": "prometheus" }
+        }
+      ]
+    }
+  ]
+}
