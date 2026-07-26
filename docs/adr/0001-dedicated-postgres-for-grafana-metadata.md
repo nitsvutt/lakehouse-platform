@@ -1,0 +1,3 @@
+# Dedicated Postgres for Grafana's metadata store
+
+Grafana defaults to an embedded SQLite database for its own metadata (dashboards, users, alert rules), which is enough for a single exploratory instance. We chose to run a dedicated Postgres container for it instead, matching how production Grafana deployments back their metadata store with Postgres/MySQL to support multiple replicas behind a load balancer. This is deliberately more infrastructure than the exploratory use case strictly needs, in exchange for the setup mirroring production shape from day one rather than needing a migration later.
